@@ -1,0 +1,21 @@
+{
+    "name": "com.jvl.game",
+    "rootNamespace": "Com.JVL.Game",
+    "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e",
+        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
+        "GUID:dc47925d1a5fa2946bdd37746b2b5d48",
+        "GUID:0abae18e953974b409f8b8f9565a0d18",
+        "GUID:07f6a1a7ac4c89744ac782be98108525"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

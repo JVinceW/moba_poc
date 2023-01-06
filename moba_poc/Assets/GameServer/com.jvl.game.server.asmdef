@@ -1,0 +1,17 @@
+{
+    "name": "com.jvl.game.server",
+    "rootNamespace": "com.JVL.Game.Server",
+    "references": [
+        "GUID:bcd28254507216e41874f1d1cac43c0a",
+        "GUID:07f6a1a7ac4c89744ac782be98108525"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

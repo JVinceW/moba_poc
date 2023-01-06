@@ -264,6 +264,15 @@
       "dependencies": {},
       "hash": "f45424822189ebd875d864a17d7f03b72eafbff7"
     },
+    "jp.hadashikick.vcontainer": {
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.12.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.mono-cecil": "1.10.1"
+      },
+      "hash": "9fff851582d14810565f8db3e82dba2227a091d4"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

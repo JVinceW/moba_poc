@@ -3,7 +3,8 @@
     "rootNamespace": "com.JVL.Game.Server",
     "references": [
         "GUID:bcd28254507216e41874f1d1cac43c0a",
-        "GUID:07f6a1a7ac4c89744ac782be98108525"
+        "GUID:07f6a1a7ac4c89744ac782be98108525",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

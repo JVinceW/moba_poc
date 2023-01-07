@@ -1,0 +1,8 @@
+{
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-724254768-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-724254768-0",
+    "CommentText": "This session contain all the game life time scope\n(server, client, core,...)",
+    "AssetGUID": "99c9720ab356a0642a771bea13969a05",
+    "UniqueItemID": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-724254768-0"
+  }
+}

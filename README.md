@@ -48,7 +48,17 @@
         
     UI Engineer:
         + UI relate task
-      
+        
+        
+        
+Execute order rule:
+    + LifeTimeScope exe order should be setup in this range: -10 -> -20
+    
+    
+    
+    
+Note: 
+    + Explain about GC of Unity (deep dive into GC of Unity)
       
         
         

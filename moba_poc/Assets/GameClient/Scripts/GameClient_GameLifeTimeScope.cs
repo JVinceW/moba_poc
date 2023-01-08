@@ -12,8 +12,8 @@ namespace GameClient.Scripts
 		protected override void Configure(IContainerBuilder builder)
 		{
 			// Testing Plain C# class with VContainer
-			builder.RegisterEntryPoint<LocalGamePlayer>();
-			builder.Register<PlayerInputService>(Lifetime.Singleton);
+			// builder.RegisterEntryPoint<LocalGamePlayer>();
+			// builder.Register<PlayerInputService>(Lifetime.Singleton);
 
 			// Testing Monobehavior class with VContainer
 			// builder.RegisterComponent(_localPlayerBehaviour);

@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace GameClient.Scripts
 {
-	public class Client_GameLifeTimeScope : LifetimeScope
+	public class GameClient_GameLifeTimeScope : LifetimeScope
 	{
 		[SerializeField] private LocalPlayerBehaviour _localPlayerBehaviour;
 		private LocalGamePlayer _localGamePlayer;
@@ -23,8 +23,8 @@ namespace GameClient.Scripts
 			// builder.RegisterComponentInHierarchy<LocalPlayerBehaviour>();
 
 			// builder.RegisterComponentInNewPrefab(_localPlayerBehaviour, Lifetime.Singleton);
-			builder.RegisterComponentOnNewGameObject<LocalPlayerBehaviour>(Lifetime.Singleton, "My Test NewObject")
-				.DontDestroyOnLoad();
+			// builder.RegisterComponentOnNewGameObject<LocalPlayerBehaviour>(Lifetime.Singleton, "My Test NewObject")
+			// 	.DontDestroyOnLoad();
 		}
 	}
 }

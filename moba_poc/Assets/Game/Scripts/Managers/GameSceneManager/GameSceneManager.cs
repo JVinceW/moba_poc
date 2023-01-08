@@ -1,4 +1,4 @@
-namespace Com.JVL.Game.Managers
+namespace Com.JVL.Game.Managers.GameSceneManager
 {
 	public class GameSceneManager : IGameManager
 	{

@@ -40,6 +40,8 @@
         + AssetManager : Download Asset (Built-in, OnDemand), Load asset, check asset version, asset build pipeline,...
         + SoundManager (Sound Engineer)
         
+        + UE like GamePlay framework
+        
     GamePlay Engineer:
         + PlayerController
         + SkillSystem (implement hero skill)
@@ -59,6 +61,13 @@ Execute order rule:
     
 Note: 
     + Explain about GC of Unity (deep dive into GC of Unity)
+    
+    
+    
+    
+    
+    
+    
       
         
         

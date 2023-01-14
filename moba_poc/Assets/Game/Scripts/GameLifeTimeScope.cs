@@ -1,5 +1,4 @@
-﻿using System;
-using Com.JVL.Game.Managers;
+﻿using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
 using VContainer;
 using VContainer.Unity;
@@ -23,9 +22,20 @@ namespace Com.JVL.Game
 			
 			builder.RegisterEntryPoint<GameInstance>();
 			
+			
 			// Register game managers
 			builder.RegisterInstance(_playerManager);
 			builder.RegisterInstance(_gameSceneManager);
+		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+			_gameSceneManager.Dispose();
+			_playerManager.Dispose();
+			
+			_gameSceneManager = null;
+			_playerManager = null;
 		}
 	}
 }

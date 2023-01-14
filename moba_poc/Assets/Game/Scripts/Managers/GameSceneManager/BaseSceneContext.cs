@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Com.JVL.Game.Managers.GameSceneManager
 {

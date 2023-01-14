@@ -1,18 +1,18 @@
 ﻿using GameCore.Scripts;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.SceneManagement;
 
 namespace Com.JVL.Game.Managers.GameSceneManager
 {
 	/// <summary>
 	/// Base task scheduler task use for load scene
 	/// </summary>
-	public class BaseSceneTaskScheduler : BaseTaskScheduler
+	public class BaseSceneTaskScheduler : BaseTaskScheduler, ISceneTaskScheduler
 	{
 		/// <summary>
 		/// Context of the scene
 		/// </summary>
-		public BaseSceneContext SceneContext;
+		public BaseSceneContext SceneContext { get; set; }
+
 
 		/// <summary>
 		/// Instance of the scene. 
@@ -25,5 +25,6 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		///Initialization of scheduler.
 		/// </summary>
 		protected override void InitializeScheduler() { }
+
 	}
 }

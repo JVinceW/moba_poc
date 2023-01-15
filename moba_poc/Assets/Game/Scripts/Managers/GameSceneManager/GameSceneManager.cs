@@ -16,26 +16,19 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 			Finsihed
 		}
 
-		#region Cache
+		#region State
 		private readonly Queue<BaseSceneTaskScheduler> _sceneHistory = new();
 		private readonly string _currentSceneName = string.Empty;
-		private GameLifeTimeScope _gameLifeTimeScope;
-		#endregion
-
-		#region State
 		private LoadSceneStatus _currentLoadSceneStatus;
-
-		private BaseSceneTaskScheduler _currentSceneScheduler;
 		#endregion
 
 		#region Accessor
-		public BaseSceneTaskScheduler CurrentSceneScheduler => _currentSceneScheduler;
+		public BaseSceneTaskScheduler CurrentSceneScheduler { get; private set; }
 		#endregion
 
 		#region Lifecycle
 		public UniTask Initialize(params object[] args)
 		{
-			_gameLifeTimeScope = (GameLifeTimeScope)GameLifeTimeScope.Find<GameLifeTimeScope>();
 			return UniTask.CompletedTask;
 		}
 		#endregion
@@ -79,9 +72,9 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		private async UniTask UnloadCurrentScene(CancellationTokenSource cancellationTokenSource)
 		{
 			// ReSharper disable once UseNullPropagation
-			if (_currentSceneScheduler == null)
+			if (CurrentSceneScheduler == null)
 				return;
-			var entryPoint = _currentSceneScheduler.SceneEntryPoint;
+			var entryPoint = CurrentSceneScheduler.SceneEntryPoint;
 			if (entryPoint != null)
 			{
 				await entryPoint.OnSceneUnLoaded()
@@ -94,7 +87,7 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		{
 			var sceneContext = sceneTaskScheduler.SceneContext;
 			_currentLoadSceneStatus = LoadSceneStatus.Processing;
-			_currentSceneScheduler = sceneTaskScheduler;
+			CurrentSceneScheduler = sceneTaskScheduler;
 			var sceneAsset = await Addressables.LoadSceneAsync(sceneContext.SceneAssetAddress);
 			//...
 			// Do some process before active it (if needed)

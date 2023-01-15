@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 
@@ -12,26 +11,27 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 	[DefaultExecutionOrder(-15)]
 	public class BaseSceneEntryPoint : MonoBehaviour, ISceneEntryPoint
 	{
-		protected readonly GameSceneManager _gameSceneManager;
-		private readonly ISceneTaskScheduler _sceneTaskScheduler;
+		protected GameSceneManager _gameSceneManager;
+		protected ISceneTaskScheduler _sceneTaskScheduler;
 
 		[Inject]
-		public BaseSceneEntryPoint(GameLifeTimeScope gameLifeTimeScope)
+		public void ConstructSceneBasicDependencies(GameSceneManager gameSceneManager)
 		{
-			Debug.Log("Resolve");
-			_gameSceneManager = gameLifeTimeScope.Container.Resolve<GameSceneManager>();
-			_sceneTaskScheduler = _gameSceneManager.CurrentLoadingSceneScheduler;
-			Debug.Log("Resolve Ended");
+			_gameSceneManager = gameSceneManager;
+			_sceneTaskScheduler = gameSceneManager.CurrentSceneScheduler;
+			_sceneTaskScheduler.SceneEntryPoint = this;
+			Debug.LogWarning("Finished injection to scene scope");
 		}
 
 		public virtual UniTask OnSceneLoaded()
 		{
-			Debug.Log($"Current Loading Scene scheduler name: {_sceneTaskScheduler.SceneContext.SceneName}");
+			Debug.Log("[BaseSceneEntryPoint] Execute: OnSceneLoaded");
 			return UniTask.CompletedTask;
 		}
 
 		public virtual UniTask OnSceneUnLoaded()
 		{
+			Debug.Log("[BaseSceneEntryPoint] Execute: OnSceneUnLoaded");
 			return UniTask.CompletedTask;
 		}
 	}

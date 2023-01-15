@@ -12,7 +12,7 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		[SerializeField] private BaseSceneEntryPoint _sceneEntryPoint;
 		protected override void Configure(IContainerBuilder builder)
 		{
-			builder.RegisterComponent(_sceneEntryPoint);
+			builder.RegisterComponent<ISceneEntryPoint>(_sceneEntryPoint);
 		}
 	}
 }

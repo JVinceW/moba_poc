@@ -12,6 +12,11 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		/// Context of the scene
 		/// </summary>
 		public BaseSceneContext SceneContext { get; set; }
+		
+		/// <summary>
+		/// Entry point object of the scene
+		/// </summary>
+		public ISceneEntryPoint SceneEntryPoint { get; set; }
 
 
 		/// <summary>

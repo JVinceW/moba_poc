@@ -21,11 +21,6 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		public string SceneAssetAddress;
 
 		/// <summary>
-		/// Mode to load scene
-		/// </summary>
-		public LoadSceneMode LoadSceneMode;
-
-		/// <summary>
 		/// Name of the previous scene
 		/// </summary>
 		public string PreviousSceneName;

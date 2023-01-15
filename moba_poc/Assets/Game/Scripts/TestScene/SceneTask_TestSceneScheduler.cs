@@ -25,7 +25,8 @@ namespace GameClient.Scripts.TestScene
 	{
 		public override async UniTask ProcessTask()
 		{
-			await UniTask.Delay(TimeSpan.FromSeconds(5));
+			await UniTask.Delay(TimeSpan.FromSeconds(1))
+				.AttachExternalCancellation(CancellationToken);
 			Debug.Log("Finished Task when load test scene");
 		}
 	}

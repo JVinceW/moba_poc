@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Game/Scenes/GameClient.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ce95f07a5f2adcc49b663a9ed23f1c51
+    m_Address: Assets/GameClient/Scenes/GameClientInstance.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 628232a29e1bdc44d98a99840de9f48a, type: 2}
   m_SchemaSet:

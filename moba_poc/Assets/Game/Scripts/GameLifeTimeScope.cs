@@ -19,23 +19,13 @@ namespace Com.JVL.Game
 		{
 			_gameSceneManager ??= new GameSceneManager();
 			_playerManager ??= new PlayerManager();
-			
+
 			builder.RegisterEntryPoint<GameInstance>();
-			
-			
+
+
 			// Register game managers
 			builder.RegisterInstance(_playerManager);
 			builder.RegisterInstance(_gameSceneManager);
-		}
-
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-			_gameSceneManager.Dispose();
-			_playerManager.Dispose();
-			
-			_gameSceneManager = null;
-			_playerManager = null;
 		}
 	}
 }

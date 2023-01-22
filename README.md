@@ -25,7 +25,8 @@
         + Poly Perfect
         + Download Model From Dota official page
     Unity Packages: 
-        + NGO: Networking Game Object 
+        + NGO: Networking Game Object : No
+        + Photon Fussion (Have to check document to understanding what is under the hood)
         + New Input System : OK
         + Cinemachine
         + Addressable (Don't know if it support NGO)

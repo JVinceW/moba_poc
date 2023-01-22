@@ -156,6 +156,8 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _clientInstanceScene: Assets/GameClient/Scenes/GameClientInstance.unity
+  _serverInstanceScene: 
 --- !u!4 &222765918
 Transform:
   m_ObjectHideFlags: 0

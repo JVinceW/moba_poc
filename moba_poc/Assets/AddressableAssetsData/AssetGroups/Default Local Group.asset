@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Assets/Game/Scenes/GameInstanceScene.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 2739ac6b62108ac4d998fa8e800526c6
-    m_Address: Assets/Game/Scenes/GameClient.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: ce95f07a5f2adcc49b663a9ed23f1c51
     m_Address: Assets/GameClient/Scenes/GameClientInstance.unity
     m_ReadOnly: 0

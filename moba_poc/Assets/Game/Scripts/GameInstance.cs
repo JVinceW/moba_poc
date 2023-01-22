@@ -5,7 +5,6 @@ using Com.JVL.Game.Managers.GameSceneManager;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -32,15 +31,17 @@ namespace Com.JVL.Game
 			// Add manager to list for initialize code more organized
 			_gameManagers.Add(_gameSceneManager);
 			_gameManagers.Add(_playerManager);
-			Debug.Log($"Is GameSceneManager null: ? {gameSceneManager == null}");
 		}
 
 		public async UniTask StartAsync(CancellationToken cancellation)
 		{
 			await InitializeSubManagers();
+			// TODO Base on define symbol, we will load game client scene or game server scene
+			// Atm, I only load game client because I'm still not impl game server
 			await LoadClientMainScene();
 		}
 
+		#region Subroutine
 		private async UniTask LoadServerMainScene()
 		{
 			Debug.Log("[GameInstance] Execute load Server MainScene");
@@ -50,7 +51,7 @@ namespace Com.JVL.Game
 		private async UniTask LoadClientMainScene()
 		{
 			Debug.Log("[GameInstance] Execute load Client MainScene");
-			await Addressables.LoadSceneAsync("Assets/GameClient/Scenes/GameClientInstance.unity");
+			await Addressables.LoadSceneAsync(_gameSceneManager.StartupSceneName);
 		}
 
 		private async UniTask InitializeSubManagers()
@@ -60,5 +61,6 @@ namespace Com.JVL.Game
 				await manager.Initialize();
 			}
 		}
+		#endregion
 	}
 }

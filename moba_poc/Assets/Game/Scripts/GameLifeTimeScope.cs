@@ -1,5 +1,6 @@
 ﻿using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -7,6 +8,9 @@ namespace Com.JVL.Game
 {
 	public class GameLifeTimeScope : LifetimeScope
 	{
+		[SerializeField] private string _clientInstanceScene = "";
+		[SerializeField] private string _serverInstanceScene = "";
+
 		private GameSceneManager _gameSceneManager;
 		private PlayerManager _playerManager;
 
@@ -17,11 +21,11 @@ namespace Com.JVL.Game
 
 		protected override void Configure(IContainerBuilder builder)
 		{
-			_gameSceneManager ??= new GameSceneManager();
+			//TODO: add define symbol to check if server or client then we will use the scene Name base on that
+			_gameSceneManager ??= new GameSceneManager(_clientInstanceScene);
 			_playerManager ??= new PlayerManager();
 
 			builder.RegisterEntryPoint<GameInstance>();
-
 
 			// Register game managers
 			builder.RegisterInstance(_playerManager);

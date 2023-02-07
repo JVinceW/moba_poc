@@ -1,7 +1,7 @@
 {
     "Version": 1,
     "TypeId": "NetworkProjectConfig",
-    "PeerMode": 0,
+    "PeerMode": 1,
     "PhysicsEngine": 0,
     "ServerPhysicsMode": 0,
     "UseLagCompensation": true,
@@ -155,7 +155,9 @@
     },
     "AssembliesToWeave": [
         "Assembly-CSharp",
-        "Assembly-CSharp-firstpass"
+        "Assembly-CSharp-firstpass",
+        "com.jvl.game",
+        "com.jvl.gameinput"
     ],
     "UseSerializableDictionary": true,
     "NullChecksForNetworkedProperties": true,

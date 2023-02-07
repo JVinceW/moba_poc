@@ -353,6 +353,78 @@ namespace Com.JVL.GameInput
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Test Moving"",
+            ""id"": ""b4c213d6-2855-4caa-b70e-2be7b1e55565"",
+            ""actions"": [
+                {
+                    ""name"": ""AWSD"",
+                    ""type"": ""Value"",
+                    ""id"": ""19b8a9ea-daf4-40bd-914c-86639e3c787c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""148ae895-45d6-4f0c-b1b8-74d935b42dc2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AWSD"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""23afe486-740a-4d3f-b4ff-ac67deb533bd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AWSD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""5922975b-56e6-4aa1-a071-cd3e66cb36a5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AWSD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8977298a-5bf1-4f96-89da-4d0f964fae97"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AWSD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ffb6f033-ecd6-4cad-925b-14723c3c47bd"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AWSD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -370,6 +442,9 @@ namespace Com.JVL.GameInput
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
             m_Camera_MoveCamera = m_Camera.FindAction("Move Camera", throwIfNotFound: true);
+            // Test Moving
+            m_TestMoving = asset.FindActionMap("Test Moving", throwIfNotFound: true);
+            m_TestMoving_AWSD = m_TestMoving.FindAction("AWSD", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -556,6 +631,39 @@ namespace Com.JVL.GameInput
             }
         }
         public CameraActions @Camera => new CameraActions(this);
+
+        // Test Moving
+        private readonly InputActionMap m_TestMoving;
+        private ITestMovingActions m_TestMovingActionsCallbackInterface;
+        private readonly InputAction m_TestMoving_AWSD;
+        public struct TestMovingActions
+        {
+            private @PlayerInputActions m_Wrapper;
+            public TestMovingActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @AWSD => m_Wrapper.m_TestMoving_AWSD;
+            public InputActionMap Get() { return m_Wrapper.m_TestMoving; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(TestMovingActions set) { return set.Get(); }
+            public void SetCallbacks(ITestMovingActions instance)
+            {
+                if (m_Wrapper.m_TestMovingActionsCallbackInterface != null)
+                {
+                    @AWSD.started -= m_Wrapper.m_TestMovingActionsCallbackInterface.OnAWSD;
+                    @AWSD.performed -= m_Wrapper.m_TestMovingActionsCallbackInterface.OnAWSD;
+                    @AWSD.canceled -= m_Wrapper.m_TestMovingActionsCallbackInterface.OnAWSD;
+                }
+                m_Wrapper.m_TestMovingActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @AWSD.started += instance.OnAWSD;
+                    @AWSD.performed += instance.OnAWSD;
+                    @AWSD.canceled += instance.OnAWSD;
+                }
+            }
+        }
+        public TestMovingActions @TestMoving => new TestMovingActions(this);
         public interface IGameplayMouseInteractionsActions
         {
             void OnUIInteractions(InputAction.CallbackContext context);
@@ -571,6 +679,10 @@ namespace Com.JVL.GameInput
         public interface ICameraActions
         {
             void OnMoveCamera(InputAction.CallbackContext context);
+        }
+        public interface ITestMovingActions
+        {
+            void OnAWSD(InputAction.CallbackContext context);
         }
     }
 }

@@ -5,7 +5,6 @@ using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Fusion;
 
 namespace Com.JVL.Game.FusionStudy
 {

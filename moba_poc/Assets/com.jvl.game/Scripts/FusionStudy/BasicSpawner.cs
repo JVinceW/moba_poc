@@ -117,6 +117,7 @@ namespace Com.JVL.Game.FusionStudy
 				GameMode = gameMode,
 				SessionName = "Test Room",
 				Scene = SceneManager.GetActiveScene().buildIndex,
+				SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
 			});
 		}
 

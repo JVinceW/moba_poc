@@ -157,7 +157,9 @@
         "Assembly-CSharp",
         "Assembly-CSharp-firstpass",
         "com.jvl.game",
-        "com.jvl.gameinput"
+        "com.jvl.gameinput",
+        "Assembly-CSharp-Editor",
+        "com.jvl.plugins"
     ],
     "UseSerializableDictionary": true,
     "NullChecksForNetworkedProperties": true,

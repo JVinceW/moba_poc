@@ -1,0 +1,18 @@
+{
+    "name": "com.jvl.plugins",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4d449a4732e064d26a3069f2cfd88917",
+        "GUID:d9d8635f8670c0c44ba7a8140f7ac7b9",
+        "GUID:5e4a091669a32a04b82201f8aae7e8fa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

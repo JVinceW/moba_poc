@@ -430,6 +430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab:
     RawGuidValue: 9c691930ccfdc2a4f975a4db9b98e606
+  _prefabBall: {fileID: 2523920393312280762, guid: 4a3dfd1aad9de0a4e8a829e7e4dca3c4,
+    type: 3}
 --- !u!4 &1063380477
 Transform:
   m_ObjectHideFlags: 0

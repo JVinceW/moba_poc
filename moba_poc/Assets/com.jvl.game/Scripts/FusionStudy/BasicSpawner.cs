@@ -11,10 +11,16 @@ namespace Com.JVL.Game.FusionStudy
 	public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 	{
 		[SerializeField] private NetworkPrefabRef _playerPrefab;
+		
 		private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 		private NetworkRunner _runner;
 		private PlayerInputActions _playerInputActions;
 		
+		private bool _mouseButton0;
+		private void Update()
+		{
+			_mouseButton0 = _mouseButton0 | Input.GetMouseButton(0);
+		}
 
 		public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
 		{
@@ -74,6 +80,12 @@ namespace Com.JVL.Game.FusionStudy
 					data.direction += Vector3.back;
 					break;
 			}
+
+			if (_mouseButton0)
+			{
+				data.buttons |= NetworkInputData.MOUSEBUTTON1;
+			}
+			_mouseButton0 = false;
 			input.Set(data);
 		}
 

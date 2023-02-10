@@ -7,6 +7,7 @@ namespace Com.JVL.Game.FusionStudy
 	{
 		private NetworkCharacterControllerPrototype _cc;
 		[SerializeField] private Ball _prefabBall;
+		[SerializeField] private PhysicBall _prefabPhysxBall;
 
 		[Networked]
 		private TickTimer delay { get; set; }
@@ -39,6 +40,18 @@ namespace Com.JVL.Game.FusionStudy
 							Object.InputAuthority, (runner, o) => {
 								// Initialize the Ball before synchronizing it
 								o.GetComponent<Ball>().Init();
+							});
+					}
+					else if ((data.buttons & NetworkInputData.MOUSEBUTTON2) != 0)
+					{
+						delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+						Runner.Spawn(_prefabPhysxBall,
+							transform.position+_forward,
+							Quaternion.LookRotation(_forward),
+							Object.InputAuthority,
+							(runner, o) =>
+							{
+								o.GetComponent<PhysicBall>().Init( 10*_forward );
 							});
 					}
 				}

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/com.jvl.game/Scenes/TestFusionBasic.unity
+    guid: c5a4df1e4cf357f469fa99f885b7944e
+  - enabled: 1
     path: Assets/com.jvl.game/Scenes/FusionTestScene.unity
     guid: 75a13050c2b385246bc2b1efc9c46d3b
   - enabled: 0

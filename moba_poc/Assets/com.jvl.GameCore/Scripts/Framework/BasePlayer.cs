@@ -1,6 +1,8 @@
-﻿namespace GameCore.Scripts.Framework
+﻿using UnityEngine;
+
+namespace GameCore.Scripts.Framework
 {
-	public class BasePlayer
+	public class BasePlayer : MonoBehaviour
 	{
 		
 	}

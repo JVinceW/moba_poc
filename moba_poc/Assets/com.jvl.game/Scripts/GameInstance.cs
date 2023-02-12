@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
 using Cysharp.Threading.Tasks;
+using GameCore.Scripts.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
@@ -13,24 +15,25 @@ namespace Com.JVL.Game
 	/// <summary>
 	/// The main class control almost all important process of the game. And this class should be exist through game lifecyle
 	/// </summary>
-	public class GameInstance : IAsyncStartable
+	public class GameInstance : IAsyncStartable, IDisposable
 	{
 		private readonly List<IGameManager> _gameManagers = new();
-		private readonly GameSceneManager _gameSceneManager;
-		private readonly PlayerManager _playerManager;
+		private readonly List<BaseLocalPlayer> _localPlayers = new();
+		private GameSceneManager _gameSceneManager;
 		protected GameSceneManager GameSceneManager => _gameSceneManager;
-		protected PlayerManager PlayerManager => _playerManager;
+
+
+		public List<BaseLocalPlayer> LocalPlayers => _localPlayers;
 
 		[Inject]
-		public GameInstance(GameSceneManager gameSceneManager, PlayerManager playerManager)
+		public void Install(GameSceneManager gameSceneManager)
 		{
 			// assign manager
 			_gameSceneManager = gameSceneManager;
-			_playerManager = playerManager;
 
 			// Add manager to list for initialize code more organized
 			_gameManagers.Add(_gameSceneManager);
-			_gameManagers.Add(_playerManager);
+			Debug.Log("Game Instance created and injected finished");
 		}
 
 		public async UniTask StartAsync(CancellationToken cancellation)
@@ -39,6 +42,11 @@ namespace Com.JVL.Game
 			// TODO Base on define symbol, we will load game client scene or game server scene
 			// Atm, I only load game client because I'm still not impl game server
 			await LoadClientMainScene();
+		}
+
+		public void AddLocalPlayer(BaseLocalPlayer localPlayer)
+		{
+			_localPlayers.Add(localPlayer);
 		}
 
 		#region Subroutine
@@ -62,5 +70,10 @@ namespace Com.JVL.Game
 			}
 		}
 		#endregion
+
+		public void Dispose()
+		{
+			_gameSceneManager?.Dispose();
+		}
 	}
 }

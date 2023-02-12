@@ -1,6 +1,8 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameClient.Scripts.Camera
 {
@@ -62,12 +64,12 @@ namespace GameClient.Scripts.Camera
 		[Foldout(EFoldoutLabelNameEdgeScrolling)]
 		[SerializeField]
 		private Vector2 _baseZoomHorizontalScrollingLimit = new Vector2(-15, 15);
+
 		[Foldout(EFoldoutLabelNameEdgeScrolling)]
 		[SerializeField]
 		private float _edgeBorderThickness = 10f;
 
-		
-		// ========= Acceleration variable ====================//
+		// ========= Acceleration variable ==================== //
 		[Foldout(EFoldoutLabelNameEdgeScrolling)]
 		[Space]
 		[SerializeField]
@@ -77,10 +79,19 @@ namespace GameClient.Scripts.Camera
 		[ShowIf("_useScrollAccelerator")]
 		[SerializeField]
 		[Range(1f, 10f)]
-		private float _acceleration = 1f;
+		private float _accelerationRate = 1f;
+		[Foldout(EFoldoutLabelNameEdgeScrolling)]
+		[ShowIf("_useScrollAccelerator")]
+		[SerializeField]
+		[Range(1f, 10f)]
+		[Tooltip("Threshold time before start accelerate camera movement")]
+		private float _accelerateThreshold = 1f;
 		#endregion Edge Scrolling Variable
 
+		// ======== Local variable ======== //
 		private Vector3 _defaultCameraToTargetOffset;
+		private float _currentSpeed;
+		private float _acceleratorThresholdTimeCounter;
 		#endregion === States ===
 
 		#region === Accessors ===
@@ -118,10 +129,15 @@ namespace GameClient.Scripts.Camera
 		#region === Event Funtions ===
 		private void Update()
 		{
+			AccelerateSpeed();
+			var scrollingOffset = CalculateScrollingOffset();
+			
+			// Adjust camera limit before set position
 			var pos = transform.position;
-			var scrollingPosition = CalculateScrollCameraPosition(pos);
-			_vtCamera.ForceCameraPosition(scrollingPosition, transform.rotation);
-			// transform.position = scrollingPosition;
+			pos += scrollingOffset;
+			pos.x = Mathf.Clamp(pos.x, _baseZoomHorizontalScrollingLimit.x, _baseZoomHorizontalScrollingLimit.y);
+			pos.z = Mathf.Clamp(pos.z, _baseZoomVerticalScrollingLimit.x, _baseZoomVerticalScrollingLimit.y);
+			_vtCamera.ForceCameraPosition(pos, transform.rotation);
 		}
 
 		private void Reset()
@@ -131,6 +147,13 @@ namespace GameClient.Scripts.Camera
 		#endregion === Event Funtion ===
 
 		#region === Methods ===
+		public void FocusCameraTo(Vector3 position, Quaternion rotation)
+		{
+			LockType = CameraLockType.None;
+			var vCamPos = position + _defaultCameraToTargetOffset;
+			_vtCamera.ForceCameraPosition(vCamPos, rotation);
+		}
+
 		public void FocusCameraTo(Transform focusTarget)
 		{
 			FocusCameraTo(focusTarget, Vector3.zero);
@@ -145,9 +168,8 @@ namespace GameClient.Scripts.Camera
 				return;
 			}
 
-			
+
 			_vtCamera.Follow = focusTarget;
-			
 			// Free camera 
 			LockType = CameraLockType.None;
 			var cameraPosition = focusTarget.position + _defaultCameraToTargetOffset + positionOffset;
@@ -156,57 +178,76 @@ namespace GameClient.Scripts.Camera
 		#endregion === Methods ===
 
 		#region === Subroutiones ===
-		private Vector3 CalculateScrollCameraPosition(Vector3 intPosition)
+		private Vector3 CalculateScrollingOffset()
 		{
-			var outputPosition = intPosition;
 			if (!_canScroll)
 			{
-				return outputPosition;
+				return Vector3.zero;
 			}
-			
+
 			var movingOffset = Vector3.zero;
 			var mousePosition = Input.mousePosition;
-			if (Input.GetKey(KeyCode.W) || mousePosition.y > Screen.height - _edgeBorderThickness)
+			if (mousePosition.y > Screen.height - _edgeBorderThickness)
 			{
-				movingOffset.z += _scrollSpeed * Time.deltaTime;
+				movingOffset.z += _currentSpeed * Time.deltaTime;
 			}
 
-			if (Input.GetKey(KeyCode.S) || mousePosition.y <= _edgeBorderThickness )
+			if (mousePosition.y <= _edgeBorderThickness)
 			{
-				movingOffset.z -= _scrollSpeed * Time.deltaTime;
+				movingOffset.z -= _currentSpeed * Time.deltaTime;
 			}
 
-			if (Input.GetKey(KeyCode.A) || mousePosition.x <= _edgeBorderThickness)
+			if (mousePosition.x <= _edgeBorderThickness)
 			{
-				movingOffset.x -= _scrollSpeed * Time.deltaTime;
+				movingOffset.x -= _currentSpeed * Time.deltaTime;
 			}
 
-			if (Input.GetKey(KeyCode.D) || mousePosition.x >= Screen.width + _edgeBorderThickness)
+			if (mousePosition.x >= Screen.width + _edgeBorderThickness)
 			{
-				movingOffset.x += _scrollSpeed * Time.deltaTime;
+				movingOffset.x += _currentSpeed * Time.deltaTime;
+			}
+
+			if (!(movingOffset.sqrMagnitude > 0))
+			{
+				// Reset accelerator if not scrolling anymore
+				ResetScrollingAccelerator();
 			}
 			
-			outputPosition += movingOffset;
-			outputPosition.x = Mathf.Clamp(outputPosition.x, _baseZoomHorizontalScrollingLimit.x,
-				_baseZoomHorizontalScrollingLimit.y);
-			outputPosition.z = Mathf.Clamp(outputPosition.z, _baseZoomVerticalScrollingLimit.x,
-				_baseZoomVerticalScrollingLimit.y);
-			return outputPosition;
+			return movingOffset;
 		}
 
-		private bool IsEdgeScrollable()
+		private void AccelerateSpeed()
 		{
-			var result = false;
-			var mousePosition = Input.mousePosition;
-			if (mousePosition.y > Screen.height - _edgeBorderThickness ||
-			    mousePosition.y <= _edgeBorderThickness ||
-			    mousePosition.x <= _edgeBorderThickness ||
-			    mousePosition.x >= Screen.width + _edgeBorderThickness)
+			if (_useScrollAccelerator)
 			{
-				result = true;
+				_currentSpeed += _accelerationRate * Time.deltaTime;
+				_currentSpeed = Mathf.Clamp(_currentSpeed, _scrollSpeed, _maxScrollSpeed);
+				_acceleratorThresholdTimeCounter += Time.deltaTime;
+				_acceleratorThresholdTimeCounter =
+					Mathf.Clamp(_acceleratorThresholdTimeCounter, 0, _accelerateThreshold);
+			} else
+			{
+				ResetScrollingAccelerator();
 			}
+		}
 
-			return result;
+		private bool IsReachScrollingLimit()
+		{
+			var pos = transform.position;
+			if (pos.x >= _baseZoomHorizontalScrollingLimit.y
+			    || pos.x <= _baseZoomHorizontalScrollingLimit.x
+			    || pos.z >= _baseZoomVerticalScrollingLimit.y
+			    || pos.z <= _baseZoomVerticalScrollingLimit.x)
+			{
+				return true;
+			} ;
+			return false;
+		}
+
+		private void ResetScrollingAccelerator()
+		{
+			_currentSpeed = _scrollSpeed;
+			_acceleratorThresholdTimeCounter = 0;
 		}
 		#endregion === Subroutiones ===
 	}

@@ -13,12 +13,6 @@ namespace Com.JVL.Game
 		[SerializeReference]
 		private BaseGameModeConfiguration _gameModeConfiguration;
 		
-		[SerializeField]
-		private string _clientInstanceScene = "";
-
-		[SerializeField]
-		private string _serverInstanceScene = "";
-		
 		private GameSceneManager _gameSceneManager;
 
 		private void Start()
@@ -28,13 +22,13 @@ namespace Com.JVL.Game
 
 		protected override void Configure(IContainerBuilder builder)
 		{
-			//TODO: add define symbol to check if server or client then we will use the scene Name base on that
-			_gameSceneManager ??= new GameSceneManager(_clientInstanceScene);
-
+			// Initialize manager class
+			_gameSceneManager ??= new GameSceneManager();
+			
 			// Register game managers
 			builder.RegisterInstance(_gameSceneManager);
-			builder.RegisterEntryPoint<GameInstance>().AsSelf();
 			builder.RegisterInstance(_gameModeConfiguration);
+			builder.RegisterEntryPoint<GameInstance>().AsSelf();
 		}
 	}
 }

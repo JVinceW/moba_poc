@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
 using Cysharp.Threading.Tasks;
-using GameClient.Scripts;
 using GameCore.Scripts.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,39 +16,41 @@ namespace Com.JVL.Game
 	/// <summary>
 	/// The main class control almost all important process of the game. And this class should be exist through game lifecyle
 	/// </summary>
-	public class GameInstance : IAsyncStartable, IDisposable
+	public class GameInstance : IGameInstance, IAsyncStartable, IDisposable
 	{
 		private BaseGameModeConfiguration _gameModeConfiguration;
 		private readonly List<IGameManager> _gameManagers = new();
 		private readonly List<BaseLocalPlayer> _localPlayers = new();
 		private GameSceneManager _gameSceneManager;
-		protected GameSceneManager GameSceneManager => _gameSceneManager;
 
-
+		#region === Accessor ===
 		public List<BaseLocalPlayer> LocalPlayers => _localPlayers;
+		public T GetGameManager<T>() where T : IGameManager
+		{
+			return (T)_gameManagers.FirstOrDefault(x => x.GetType() == typeof(T));
+		}
 
 		public T GameModeConfiguration<T>() where T : BaseGameModeConfiguration
 		{
 			return _gameModeConfiguration as T;
 		}
+		#endregion === Accessor ===
 
 		[Inject]
-		public void Install(GameSceneManager gameSceneManager, BaseGameModeConfiguration gameModeConfiguration)
+		public void InstallDependencies(GameSceneManager gameSceneManager, BaseGameModeConfiguration gameModeConfiguration)
 		{
-			// assign manager
 			_gameSceneManager = gameSceneManager;
-			_gameModeConfiguration = gameModeConfiguration;
-
 			// Add manager to list for initialize code more organized
 			_gameManagers.Add(_gameSceneManager);
-			Debug.Log("Game Instance created and injected finished");
+			
+			// Assign game mode configuration
+			_gameModeConfiguration = gameModeConfiguration;
 		}
 
 		public async UniTask StartAsync(CancellationToken cancellation)
 		{
 			await InitializeSubManagers();
-			// TODO Base on define symbol, we will load game client scene or game server scene
-			// Atm, I only load game client because I'm still not impl game server
+
 			await LoadClientMainScene();
 		}
 
@@ -61,13 +63,19 @@ namespace Com.JVL.Game
 		private async UniTask LoadServerMainScene()
 		{
 			Debug.Log("[GameInstance] Execute load Server MainScene");
-			await Addressables.LoadSceneAsync("");
+			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetServerSceneToLoad)
+				? _gameModeConfiguration.GetDefaultSceneToLoad
+				: _gameModeConfiguration.GetServerSceneToLoad; 
+			await Addressables.LoadSceneAsync(sceneName);
 		}
 
 		private async UniTask LoadClientMainScene()
 		{
+			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetClientSceneToLoad)
+				? _gameModeConfiguration.GetDefaultSceneToLoad
+				: _gameModeConfiguration.GetClientSceneToLoad; 
 			Debug.Log("[GameInstance] Execute load Client MainScene");
-			await Addressables.LoadSceneAsync(_gameSceneManager.StartupSceneName);
+			await Addressables.LoadSceneAsync(sceneName);
 		}
 
 		private async UniTask InitializeSubManagers()

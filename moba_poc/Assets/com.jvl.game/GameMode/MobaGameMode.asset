@@ -15,3 +15,6 @@ MonoBehaviour:
   GameModeName: moba
   LocalPlayer: {fileID: 1613509923199385048, guid: 5cc2bf1eaf7c6da4ea706d8333541740,
     type: 3}
+  DefaultSceneToLoad: Assets/GameClient/Scenes/GameClientInstance.unity
+  ClientSceneToLoad: Assets/GameClient/Scenes/GameClientInstance.unity
+  ServerSceneToLoad: 

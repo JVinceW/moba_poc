@@ -20,19 +20,14 @@ namespace Com.JVL.Game.Managers.GameSceneManager
 		private readonly Queue<BaseSceneTaskScheduler> _sceneHistory = new();
 		private readonly string _currentSceneName = string.Empty;
 		private LoadSceneStatus _currentLoadSceneStatus;
-		private string _startupSceneName;
 		#endregion
 
 		#region Accessor
 		public BaseSceneTaskScheduler CurrentSceneScheduler { get; private set; }
-		public string StartupSceneName => _startupSceneName;
 		#endregion
 
 		#region Lifecycle
-		public GameSceneManager(string startupScene)
-		{
-			_startupSceneName = startupScene;
-		}
+		
 		public UniTask Initialize(params object[] args)
 		{
 			return UniTask.CompletedTask;

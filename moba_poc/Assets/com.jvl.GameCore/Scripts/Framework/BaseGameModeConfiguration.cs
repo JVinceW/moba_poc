@@ -12,6 +12,21 @@ namespace GameCore.Scripts.Framework
 		[SerializeField]
 		protected BaseLocalPlayer LocalPlayer;
 
+		[SerializeField]
+		protected string DefaultSceneToLoad;
+
+		[SerializeField]
+		protected string ClientSceneToLoad;
+
+		[SerializeField]
+		protected string ServerSceneToLoad;
+
+		public string GetDefaultSceneToLoad => DefaultSceneToLoad;
+
+		public string GetClientSceneToLoad => ClientSceneToLoad;
+
+		public string GetServerSceneToLoad => ServerSceneToLoad;
+
 		public BaseLocalPlayer GetLocalPlayer => LocalPlayer;
 
 		public string GetGameModeName => GameModeName;

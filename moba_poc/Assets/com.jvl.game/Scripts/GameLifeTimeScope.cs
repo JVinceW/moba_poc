@@ -1,5 +1,6 @@
-﻿using Com.JVL.Game.Managers;
-using Com.JVL.Game.Managers.GameSceneManager;
+﻿using Com.JVL.Game.Managers.GameSceneManager;
+using GameCore.Scripts.Framework;
+using NaughtyAttributes;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,6 +9,10 @@ namespace Com.JVL.Game
 {
 	public class GameLifeTimeScope : LifetimeScope
 	{
+		[Expandable]
+		[SerializeReference]
+		private BaseGameModeConfiguration _gameModeConfiguration;
+		
 		[SerializeField]
 		private string _clientInstanceScene = "";
 
@@ -29,6 +34,7 @@ namespace Com.JVL.Game
 			// Register game managers
 			builder.RegisterInstance(_gameSceneManager);
 			builder.RegisterEntryPoint<GameInstance>().AsSelf();
+			builder.RegisterInstance(_gameModeConfiguration);
 		}
 	}
 }

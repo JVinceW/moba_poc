@@ -4,6 +4,7 @@ using System.Threading;
 using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
 using Cysharp.Threading.Tasks;
+using GameClient.Scripts;
 using GameCore.Scripts.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -17,6 +18,7 @@ namespace Com.JVL.Game
 	/// </summary>
 	public class GameInstance : IAsyncStartable, IDisposable
 	{
+		private BaseGameModeConfiguration _gameModeConfiguration;
 		private readonly List<IGameManager> _gameManagers = new();
 		private readonly List<BaseLocalPlayer> _localPlayers = new();
 		private GameSceneManager _gameSceneManager;
@@ -25,11 +27,17 @@ namespace Com.JVL.Game
 
 		public List<BaseLocalPlayer> LocalPlayers => _localPlayers;
 
+		public T GameModeConfiguration<T>() where T : BaseGameModeConfiguration
+		{
+			return _gameModeConfiguration as T;
+		}
+
 		[Inject]
-		public void Install(GameSceneManager gameSceneManager)
+		public void Install(GameSceneManager gameSceneManager, BaseGameModeConfiguration gameModeConfiguration)
 		{
 			// assign manager
 			_gameSceneManager = gameSceneManager;
+			_gameModeConfiguration = gameModeConfiguration;
 
 			// Add manager to list for initialize code more organized
 			_gameManagers.Add(_gameSceneManager);

@@ -156,6 +156,8 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _gameModeConfiguration: {fileID: 11400000, guid: b3c3775c1478615498efd8dab6b8e17b,
+    type: 2}
   _clientInstanceScene: Assets/GameClient/Scenes/GameClientInstance.unity
   _serverInstanceScene: 
 --- !u!4 &222765918

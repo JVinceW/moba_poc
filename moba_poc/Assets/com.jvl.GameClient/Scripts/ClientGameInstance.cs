@@ -17,15 +17,12 @@ namespace GameClient.Scripts
 
 		public GameInstance GameInstance => _gameInstance;
 
-		public ClientGameInstance(GameModeConfiguration gameModeConfiguration)
-		{
-			_gameModeConfiguration = gameModeConfiguration;
-		}
-
 		[Inject]
 		public void InstallDependencies(GameLifeTimeScope gameLifeTimeScope)
 		{
 			_gameInstance = gameLifeTimeScope.Container.Resolve<GameInstance>();
+			_gameModeConfiguration = _gameInstance.GameModeConfiguration<GameModeConfiguration>();
+			Debug.Log(_gameModeConfiguration == null);
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
-﻿using Com.JVL.Game.Managers.GameSceneManager;
-using GameCore.Scripts.Framework;
+﻿using Com.JVL.Game.GameMode;
+using Com.JVL.Game.Managers.GameSceneManager;
+using Com.JVL.Game.Managers.PlayerManager;
 using NaughtyAttributes;
 using UnityEngine;
 using VContainer;
@@ -13,7 +14,9 @@ namespace Com.JVL.Game
 		[SerializeReference]
 		private BaseGameModeConfiguration _gameModeConfiguration;
 		
-		private GameSceneManager _gameSceneManager;
+		private readonly GameSceneManager _gameSceneManager = new();
+
+		private readonly PlayerManager _playerManager = new();
 
 		private void Start()
 		{
@@ -22,11 +25,9 @@ namespace Com.JVL.Game
 
 		protected override void Configure(IContainerBuilder builder)
 		{
-			// Initialize manager class
-			_gameSceneManager ??= new GameSceneManager();
-			
 			// Register game managers
 			builder.RegisterInstance(_gameSceneManager);
+			builder.RegisterInstance(_playerManager);
 			builder.RegisterInstance(_gameModeConfiguration);
 			builder.RegisterEntryPoint<GameInstance>().AsSelf();
 		}

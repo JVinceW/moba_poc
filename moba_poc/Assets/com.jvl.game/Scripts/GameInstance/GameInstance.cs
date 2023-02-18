@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Com.JVL.Game.GameMode;
 using Com.JVL.Game.Managers;
 using Com.JVL.Game.Managers.GameSceneManager;
 using Cysharp.Threading.Tasks;
-using GameCore.Scripts.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
+
+#if UNITY_EDITOR
+using ParrelSync;
+#endif
 
 namespace Com.JVL.Game
 {
@@ -20,11 +24,9 @@ namespace Com.JVL.Game
 	{
 		private BaseGameModeConfiguration _gameModeConfiguration;
 		private readonly List<IGameManager> _gameManagers = new();
-		private readonly List<BaseLocalPlayer> _localPlayers = new();
 		private GameSceneManager _gameSceneManager;
 
 		#region === Accessor ===
-		public List<BaseLocalPlayer> LocalPlayers => _localPlayers;
 		public T GetGameManager<T>() where T : IGameManager
 		{
 			return (T)_gameManagers.FirstOrDefault(x => x.GetType() == typeof(T));
@@ -37,12 +39,13 @@ namespace Com.JVL.Game
 		#endregion === Accessor ===
 
 		[Inject]
-		public void InstallDependencies(GameSceneManager gameSceneManager, BaseGameModeConfiguration gameModeConfiguration)
+		public void InstallDependencies(GameSceneManager gameSceneManager,
+			BaseGameModeConfiguration gameModeConfiguration)
 		{
 			_gameSceneManager = gameSceneManager;
 			// Add manager to list for initialize code more organized
 			_gameManagers.Add(_gameSceneManager);
-			
+
 			// Assign game mode configuration
 			_gameModeConfiguration = gameModeConfiguration;
 		}
@@ -51,29 +54,43 @@ namespace Com.JVL.Game
 		{
 			await InitializeSubManagers();
 
-			await LoadClientMainScene();
-		}
-
-		public void AddLocalPlayer(BaseLocalPlayer localPlayer)
-		{
-			_localPlayers.Add(localPlayer);
+#if UNITY_EDITOR
+			if (ClonesManager.IsClone())
+			{
+				Debug.Log("This is the cloned project");
+				var customArgs = ClonesManager.GetArgument();
+				Debug.Log($"clone argument is: {customArgs}");
+				if (customArgs == "server")
+				{
+					LoadServerMainScene();
+				} else
+				{
+					LoadClientMainScene();
+				}
+			} else
+			{
+				await LoadClientMainScene();
+			}
+#endif
+			// await LoadClientMainScene();
 		}
 
 		#region Subroutine
 		private async UniTask LoadServerMainScene()
 		{
 			Debug.Log("[GameInstance] Execute load Server MainScene");
-			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetServerSceneToLoad)
+			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetServerSceneToLoad.AssetGUID)
 				? _gameModeConfiguration.GetDefaultSceneToLoad
-				: _gameModeConfiguration.GetServerSceneToLoad; 
+				: _gameModeConfiguration.GetServerSceneToLoad;
+			Debug.Log("[GameInstance] Execute load Server MainScene");
 			await Addressables.LoadSceneAsync(sceneName);
 		}
 
 		private async UniTask LoadClientMainScene()
 		{
-			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetClientSceneToLoad)
+			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetClientSceneToLoad.AssetGUID)
 				? _gameModeConfiguration.GetDefaultSceneToLoad
-				: _gameModeConfiguration.GetClientSceneToLoad; 
+				: _gameModeConfiguration.GetClientSceneToLoad;
 			Debug.Log("[GameInstance] Execute load Client MainScene");
 			await Addressables.LoadSceneAsync(sceneName);
 		}

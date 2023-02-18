@@ -22,7 +22,19 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ce95f07a5f2adcc49b663a9ed23f1c51
-    m_Address: Assets/GameClient/Scenes/GameClientInstance.unity
+    m_Address: Assets/com.jvl.GameClient/Scenes/ClientGameInstance.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3417d800b544c844ca83d37f357d2d06
+    m_Address: Assets/com.jvl.GameServer/Scenes/ServerGameInstance.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3edc143efecc7d8479f0fceaec0aa613
+    m_Address: Assets/com.jvl.game/Common/Prefabs/SpawnPoint.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a8b503e8ab078946b772d1adf956fdc
+    m_Address: Assets/com.jvl.GameServer/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

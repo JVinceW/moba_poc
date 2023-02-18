@@ -2,7 +2,8 @@
     "name": "com.jvl.gameinput",
     "rootNamespace": "Com.JVL.GameInput",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:940a543a769255248932746adc884d74"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

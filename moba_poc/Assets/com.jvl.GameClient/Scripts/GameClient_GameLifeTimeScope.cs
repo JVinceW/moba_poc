@@ -7,6 +7,7 @@ namespace GameClient.Scripts
 	{
 		private void Start()
 		{
+			
 			DontDestroyOnLoad(this);
 		}
 

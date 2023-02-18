@@ -12,9 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e134228c89844185b8f3eadb5cf8e0dc, type: 3}
   m_Name: MobaGameMode
   m_EditorClassIdentifier: 
-  GameModeName: moba
-  LocalPlayer: {fileID: 1613509923199385048, guid: 5cc2bf1eaf7c6da4ea706d8333541740,
+  GameModeName: MOBA
+  LocalPlayer: {fileID: 621317966768481778, guid: 5cc2bf1eaf7c6da4ea706d8333541740,
     type: 3}
-  DefaultSceneToLoad: Assets/GameClient/Scenes/GameClientInstance.unity
-  ClientSceneToLoad: Assets/GameClient/Scenes/GameClientInstance.unity
-  ServerSceneToLoad: 
+  PlayerCharacter:
+    RawGuidValue: 6eacdcffb1987e045a8cc3b1bac1f6dc
+  DefaultSceneToLoad:
+    m_AssetGUID: ce95f07a5f2adcc49b663a9ed23f1c51
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ClientSceneToLoad:
+    m_AssetGUID: ce95f07a5f2adcc49b663a9ed23f1c51
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ServerSceneToLoad:
+    m_AssetGUID: 3417d800b544c844ca83d37f357d2d06
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _maxPlayers: 10
+  _playablePlayerCount: 10
+  _maxTeamCount: 2
+  _playerPerTeamCount: 5
+  _teamConfigurations: []

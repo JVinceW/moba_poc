@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using Fusion;
+using Fusion.Sockets;
+using NaughtyAttributes;
+using UnityEngine;
+using VContainer;
+
+namespace Com.JVL.Game.GameMode
+{
+	public class BaseGameMode : MonoBehaviour, INetworkRunnerCallbacks, IGameMode
+	{
+		[ReadOnly]
+		[Inject]
+		[SerializeReference]
+		protected BaseGameModeConfiguration GameModeConfiguration;
+
+		protected BaseGameState BaseGameState;
+
+		private string _gameModeName;
+
+		public T GetGameState<T>() where T : BaseGameState
+		{
+			return (T)BaseGameState;
+		}
+
+		public virtual void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
+
+		public virtual void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
+
+		public virtual void OnInput(NetworkRunner runner, NetworkInput input) { }
+
+		public virtual void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
+
+		public virtual void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
+
+		public virtual void OnConnectedToServer(NetworkRunner runner) { }
+
+		public virtual void OnDisconnectedFromServer(NetworkRunner runner) { }
+
+		public virtual void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request,
+			byte[] token) { }
+
+		public virtual void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress,
+			NetConnectFailedReason reason) { }
+
+		public virtual void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
+
+		public virtual void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
+
+		public virtual void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
+
+		public virtual void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
+
+		public virtual void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
+
+		public virtual void OnSceneLoadDone(NetworkRunner runner) { }
+
+		public virtual void OnSceneLoadStart(NetworkRunner runner) { }
+
+		#region IGameMode Implementation
+		public BaseGameModeConfiguration GameModeConfig {
+			get => GameModeConfiguration;
+		}
+
+		public T GameModeConfigByType<T>() where T : BaseGameModeConfiguration
+		{
+			return (T)GameModeConfig;
+		}
+
+		string IGameMode.GameModeName => GameModeConfig.GetGameModeName;
+		#endregion IGameMode Implementation
+	}
+}

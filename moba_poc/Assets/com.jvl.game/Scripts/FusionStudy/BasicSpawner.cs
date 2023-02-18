@@ -13,7 +13,7 @@ namespace Com.JVL.Game.FusionStudy
 		[SerializeField] private NetworkPrefabRef _playerPrefab;
 		private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
-		async void StartGame(GameMode mode)
+		async void StartGame(Fusion.GameMode mode)
 		{
 			// Create the Fusion runner and let it know that we will be providing user input
 			_runner = gameObject.AddComponent<NetworkRunner>();
@@ -127,12 +127,12 @@ namespace Com.JVL.Game.FusionStudy
 			{
 				if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
 				{
-					StartGame(GameMode.Host);
+					StartGame(Fusion.GameMode.Server);
 				}
 
 				if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
 				{
-					StartGame(GameMode.Client);
+					StartGame(Fusion.GameMode.Client);
 				}
 			}
 		}

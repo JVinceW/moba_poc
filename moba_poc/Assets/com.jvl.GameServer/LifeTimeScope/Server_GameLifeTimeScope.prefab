@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Com.JVL.Game.GameLifeTimeScope
   autoRun: 1
   autoInjectGameObjects: []
+  _serverGameMode: {fileID: 0}
   _serverMainPlayer: {fileID: 5152528282342540625, guid: 7062ff5069bafaf47a9f24ee82ba65d2,
     type: 3}

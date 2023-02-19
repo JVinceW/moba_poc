@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5152528282342540627
+--- !u!1 &8793550013073597166
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5152528282342540624}
-  - component: {fileID: 5152528282342540625}
-  - component: {fileID: 5152528282342540626}
-  - component: {fileID: 5152528282342540623}
+  - component: {fileID: 8793550013073597164}
+  - component: {fileID: 8793550013073597165}
+  - component: {fileID: -3322781927882068244}
+  - component: {fileID: 5782278567851736356}
   m_Layer: 0
-  m_Name: ServerMainPlayer
+  m_Name: ServerGameMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5152528282342540624
+--- !u!4 &8793550013073597164
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152528282342540627}
+  m_GameObject: {fileID: 8793550013073597166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -26.558496, y: 7.9474664, z: 30.93415}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,39 +34,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5152528282342540625
+--- !u!114 &8793550013073597165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152528282342540627}
+  m_GameObject: {fileID: 8793550013073597166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ae03f78ce404dc1be3a182fdcf13183, type: 3}
+  m_Script: {fileID: 11500000, guid: e95683671652465bbc22efad056e2fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runner: {fileID: 5152528282342540626}
-  _networkSceneManager: {fileID: 5152528282342540623}
---- !u!114 &5152528282342540626
+  GameModeConfiguration: {fileID: 0}
+  _runner: {fileID: -3322781927882068244}
+  _networkSceneManager: {fileID: 5782278567851736356}
+--- !u!114 &-3322781927882068244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152528282342540627}
+  m_GameObject: {fileID: 8793550013073597166}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5152528282342540623
+--- !u!114 &5782278567851736356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152528282342540627}
+  m_GameObject: {fileID: 8793550013073597166}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a93abf1a391964a94e5c139605105b, type: 3}

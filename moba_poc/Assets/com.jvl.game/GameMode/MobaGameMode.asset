@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MobaGameMode
   m_EditorClassIdentifier: 
   GameModeName: MOBA
-  LocalPlayer: {fileID: 621317966768481778, guid: 5cc2bf1eaf7c6da4ea706d8333541740,
+  LocalPlayer: {fileID: 1687596548663231992, guid: 5cc2bf1eaf7c6da4ea706d8333541740,
     type: 3}
   PlayerCharacter:
     RawGuidValue: 6eacdcffb1987e045a8cc3b1bac1f6dc

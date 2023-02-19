@@ -17,7 +17,7 @@ namespace Com.JVL.Game.GameMode
 		protected string GameModeName;
 
 		[Foldout(EGeneralCategory)]
-		[SerializeField]
+		[SerializeReference]
 		protected BaseGameLocalPlayer LocalPlayer;
 
 		[Foldout(EGeneralCategory)]

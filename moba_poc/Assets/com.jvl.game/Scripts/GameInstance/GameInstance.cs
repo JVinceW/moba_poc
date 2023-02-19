@@ -78,7 +78,6 @@ namespace Com.JVL.Game
 		#region Subroutine
 		private async UniTask LoadServerMainScene()
 		{
-			Debug.Log("[GameInstance] Execute load Server MainScene");
 			var sceneName = string.IsNullOrEmpty(_gameModeConfiguration.GetServerSceneToLoad.AssetGUID)
 				? _gameModeConfiguration.GetDefaultSceneToLoad
 				: _gameModeConfiguration.GetServerSceneToLoad;

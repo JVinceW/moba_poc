@@ -27,7 +27,6 @@ namespace GameClient.Scripts
 		{
 			_gameInstance = gameLifeTimeScope.Container.Resolve<GameInstance>();
 			_gameModeConfiguration = _gameInstance.GameModeConfiguration<BaseGameModeConfiguration>();
-			Debug.Log(_gameModeConfiguration == null);
 		}
 
 		/// <summary>

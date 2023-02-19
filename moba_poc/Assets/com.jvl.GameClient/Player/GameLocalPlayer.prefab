@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1613509923199385049}
-  - component: {fileID: 621317966768481778}
+  - component: {fileID: 1687596548663231992}
+  - component: {fileID: 6919688543858546753}
+  - component: {fileID: 542457590170544404}
   m_Layer: 0
   m_Name: GameLocalPlayer
   m_TagString: Untagged
@@ -32,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &621317966768481778
+--- !u!114 &1687596548663231992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +43,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1613509923199385050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89638b9009f04954804ca95f6e43b2f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4728c7a0a82c416794d534dad3f79f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _runner: {fileID: 6919688543858546753}
+  _networkSceneManager: {fileID: 542457590170544404}
+--- !u!114 &6919688543858546753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613509923199385050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &542457590170544404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613509923199385050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a93abf1a391964a94e5c139605105b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowHierarchyWindowOverlay: 1
+  PostLoadDelayFrames: 1

@@ -1,13 +1,13 @@
-﻿using VContainer;
+﻿using GameClient.Scripts;
+using VContainer;
 using VContainer.Unity;
 
-namespace GameClient.Scripts
+namespace Com.JVL.Game.Client
 {
 	public class GameClient_GameLifeTimeScope : LifetimeScope
 	{
 		private void Start()
 		{
-			
 			DontDestroyOnLoad(this);
 		}
 

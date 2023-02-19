@@ -1,15 +1,15 @@
-﻿using Com.JVL.Game.Server.com.jvl.GameServer.Player;
+﻿using Com.JVL.Game.Server.com.jvl.GameServer;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Com.JVL.Game.Server.com.jvl.GameServer
+namespace Com.JVL.Game.Server
 {
 	public class GameLifeTimeScopeServer : LifetimeScope
 	{
-		[SerializeField]
-		private ServerMainPlayer _serverMainPlayer;
-		
+		[SerializeReference]
+		private ServerGameMode _serverGameMode;
+
 		private void Start()
 		{
 			DontDestroyOnLoad(this);
@@ -17,8 +17,7 @@ namespace Com.JVL.Game.Server.com.jvl.GameServer
 		
 		protected override void Configure(IContainerBuilder builder)
 		{
-			
-			builder.RegisterComponentInNewPrefab(_serverMainPlayer, Lifetime.Singleton);
+			builder.RegisterComponentInNewPrefab(_serverGameMode, Lifetime.Singleton);
 			builder.RegisterEntryPoint<ServerGameInstance>().AsSelf();
 		}
 	}

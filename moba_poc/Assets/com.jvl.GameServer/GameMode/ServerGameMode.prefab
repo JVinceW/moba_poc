@@ -49,6 +49,8 @@ MonoBehaviour:
   GameModeConfiguration: {fileID: 0}
   _runner: {fileID: -3322781927882068244}
   _networkSceneManager: {fileID: 5782278567851736356}
+  _playerStatePrefabRef:
+    RawGuidValue: 73534fd9afd60fe48ab9867734383e83
 --- !u!114 &-3322781927882068244
 MonoBehaviour:
   m_ObjectHideFlags: 0

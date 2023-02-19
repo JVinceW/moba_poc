@@ -1,4 +1,5 @@
 ﻿using Com.JVL.Game.GameMode;
+using Com.JVL.Game.Server.Player;
 using Cysharp.Threading.Tasks;
 using Fusion;
 using UnityEngine;
@@ -18,6 +19,12 @@ namespace Com.JVL.Game.Server
 		[SerializeField]
 		private NetworkSceneManagerBase _networkSceneManager;
 
+		[SerializeField]
+		private NetworkPrefabRef _playerStatePrefabRef;
+
+		[SerializeField]
+		private NetworkPrefabId _id;
+
 		public void Init()
 		{
 			Debug.Log("init Server game Mode");
@@ -27,6 +34,12 @@ namespace Com.JVL.Game.Server
 		{
 			base.OnPlayerJoined(runner, player);
 			Debug.Log($"Player joined: {player.PlayerId}");
+			runner.Spawn(_playerStatePrefabRef, Vector3.zero, 
+				Quaternion.identity, 
+				null, (networkRunner, o) => {
+					var playerStateServer = o.GetComponent<GamePlayerStateServer>();
+					playerStateServer.NotificationSpawned();
+				});
 			// Create a unique position for the player
 			// Vector3 spawnPosition =
 			// new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);

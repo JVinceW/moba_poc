@@ -154,12 +154,14 @@
         "values": []
     },
     "AssembliesToWeave": [
-        "Assembly-CSharp",
-        "Assembly-CSharp-firstpass",
         "com.jvl.game",
         "com.jvl.gameinput",
+        "com.jvl.plugins",
+        "com.jvl.game.client",
+        "com.jvl.game.server",
         "Assembly-CSharp-Editor",
-        "com.jvl.plugins"
+        "Assembly-CSharp-firstpass",
+        "Assembly-CSharp"
     ],
     "UseSerializableDictionary": true,
     "NullChecksForNetworkedProperties": true,

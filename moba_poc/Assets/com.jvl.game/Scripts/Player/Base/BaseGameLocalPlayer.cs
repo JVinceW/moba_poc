@@ -40,7 +40,6 @@ namespace Com.JVL.Game.Player
 				SceneManager = _networkSceneManager
 			};
 			await _runner.StartGame(args).AsUniTask();
-			Debug.Log("Game Stated client");
 		}
 
 		private void Reset()

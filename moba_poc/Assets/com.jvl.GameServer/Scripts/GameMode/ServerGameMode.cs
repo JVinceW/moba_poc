@@ -1,4 +1,5 @@
 ﻿using Com.JVL.Game.GameMode;
+using Com.JVL.Game.Player;
 using Com.JVL.Game.Server.Player;
 using Cysharp.Threading.Tasks;
 using Fusion;
@@ -34,7 +35,7 @@ namespace Com.JVL.Game.Server
 		{
 			base.OnPlayerJoined(runner, player);
 			Debug.Log($"Player joined: {player.PlayerId}");
-			runner.Spawn(_playerStatePrefabRef, Vector3.zero, 
+			var gamePlayerState = runner.Spawn(_playerStatePrefabRef, Vector3.zero, 
 				Quaternion.identity, 
 				null, (networkRunner, o) => {
 					var playerStateServer = o.GetComponent<GamePlayerStateServer>();

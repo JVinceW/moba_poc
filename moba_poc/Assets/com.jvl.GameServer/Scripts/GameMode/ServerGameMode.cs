@@ -37,9 +37,10 @@ namespace Com.JVL.Game.Server
 			Debug.Log($"Player joined: {player.PlayerId}");
 			var gamePlayerState = runner.Spawn(_playerStatePrefabRef, Vector3.zero, 
 				Quaternion.identity, 
-				null, (networkRunner, o) => {
+				player, (networkRunner, o) => {
 					var playerStateServer = o.GetComponent<GamePlayerStateServer>();
-					playerStateServer.NotificationSpawned();
+					Debug.Log("Server assign Input authority");
+					playerStateServer.NotificationSpawned(player);
 				});
 			// Create a unique position for the player
 			// Vector3 spawnPosition =

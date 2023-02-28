@@ -2,8 +2,5 @@
 
 namespace Com.JVL.Game.GameMode
 {
-	public class BaseGameState : NetworkBehaviour
-	{
-		
-	}
+	public class BaseGameState : NetworkBehaviour { }
 }

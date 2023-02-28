@@ -17,6 +17,8 @@ MonoBehaviour:
     type: 3}
   PlayerCharacter:
     RawGuidValue: 6eacdcffb1987e045a8cc3b1bac1f6dc
+  GameState:
+    RawGuidValue: c433c259e27536f47b0447d60ce3c277
   DefaultSceneToLoad:
     m_AssetGUID: ce95f07a5f2adcc49b663a9ed23f1c51
     m_SubObjectName: 

@@ -19,11 +19,6 @@ namespace Com.JVL.Game.Server.Player
 		{
 			Debug.Log("Spawned callback");
 			Debug.Log($"HasStateAuthority: {Object.HasStateAuthority} - HasInputAuthority: {Object.HasInputAuthority} - IsProxies: {Object.IsProxy}");
-			// if (Runner.IsServer)
-			// {
-			// 	Debug.Log("Server sending RPC");
-			// 	RPC_ClientSpawnedNotification(Player);
-			// }
 		}
 
 

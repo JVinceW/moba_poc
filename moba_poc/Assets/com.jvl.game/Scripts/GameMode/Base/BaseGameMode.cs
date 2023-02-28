@@ -1,27 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Fusion;
 using Fusion.Sockets;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace Com.JVL.Game.GameMode
 {
+	/* 
+	 * Game mode should not be NetworkBehavior, we don't want client know anything about this
+	 */
+	[RequireComponent(typeof(NetworkRunner))]
 	public class BaseGameMode : MonoBehaviour, INetworkRunnerCallbacks, IGameMode
 	{
 		[ReadOnly]
 		[Inject]
 		[SerializeReference]
 		protected BaseGameModeConfiguration GameModeConfiguration;
+		
+		[Inject]
+		private GameInstance _gameInstance;
+
+		[SerializeField]
+		private NetworkRunner _runner;
+		
+		[SerializeField]
+		private NetworkSceneManagerBase _networkSceneManager;
 
 		protected BaseGameState BaseGameState;
+
+		protected NetworkRunner GetRunner => _runner;
+
+		protected virtual void Reset()
+		{
+			_runner = GetComponent<NetworkRunner>();
+			_networkSceneManager = GetComponent<NetworkSceneManagerBase>();
+		}
 
 		private string _gameModeName;
 
 		public T GetGameState<T>() where T : BaseGameState
 		{
 			return (T)BaseGameState;
+		}
+		
+		protected virtual string GetSessionName()
+		{
+			return "Default";
 		}
 
 		public virtual void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
@@ -69,6 +97,20 @@ namespace Com.JVL.Game.GameMode
 		}
 
 		string IGameMode.GameModeName => GameModeConfig.GetGameModeName;
+		public async UniTask StartGame(Fusion.GameMode gameMode)
+		{
+			_runner.ProvideInput = true;
+			var args = new StartGameArgs {
+				GameMode = gameMode,
+				SessionName = GetSessionName(),
+				Scene = SceneManager.GetActiveScene().buildIndex,
+				SceneManager = _networkSceneManager
+			};
+			await _runner.StartGame(args).AsUniTask();
+			Debug.Log($"[BaseGameMode] game stated: {gameMode}");
+		}
 		#endregion IGameMode Implementation
 	}
+	
+	
 }

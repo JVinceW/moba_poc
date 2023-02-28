@@ -20,7 +20,7 @@ namespace Com.JVL.Game.Server.com.jvl.GameServer
 
 		private async UniTask StartServer()
 		{
-			await _gameMode.StartServer();
+			await _gameMode.StartGame(Fusion.GameMode.Server);
 			_gameMode.Init();
 		}
 

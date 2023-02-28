@@ -1,5 +1,6 @@
 ﻿using Com.JVL.Game.GameMode;
 using Com.JVL.Game.Managers.GameSceneManager;
+using Com.JVL.Game.Managers.GameTimeManager;
 using Com.JVL.Game.Managers.PlayerManager;
 using NaughtyAttributes;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Com.JVL.Game
 
 		private readonly PlayerManager _playerManager = new();
 
+		private readonly GameTimeManager _gameTimeManager = new();
+
 		private void Start()
 		{
 			DontDestroyOnLoad(gameObject);
@@ -29,6 +32,7 @@ namespace Com.JVL.Game
 			builder.RegisterInstance(_gameSceneManager);
 			builder.RegisterInstance(_playerManager);
 			builder.RegisterInstance(_gameModeConfiguration);
+			builder.RegisterInstance(_gameTimeManager);
 			builder.RegisterEntryPoint<GameInstance>().AsSelf();
 		}
 	}

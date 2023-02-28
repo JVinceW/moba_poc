@@ -2,7 +2,7 @@
 
 namespace Com.JVL.Game.Player
 {
-	public class GamePlayerState : NetworkBehaviour
+	public partial class GamePlayerState : NetworkBehaviour
 	{
 		
 	}

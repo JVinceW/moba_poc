@@ -24,6 +24,10 @@ namespace Com.JVL.Game.GameMode
 		[SerializeField]
 		protected NetworkPrefabRef PlayerCharacter;
 
+		[Foldout(EGeneralCategory)]
+		[SerializeField]
+		protected NetworkPrefabRef GameState;
+
 		[Foldout(ESceneCategory)]
 		[SerializeField]
 		protected AssetReference DefaultSceneToLoad;
@@ -45,6 +49,8 @@ namespace Com.JVL.Game.GameMode
 		public BaseGameLocalPlayer GetLocalPlayer => LocalPlayer;
 
 		public NetworkPrefabRef GetPlayerCharacter => PlayerCharacter;
+
+		public NetworkPrefabRef GetGameState => GameState;
 
 		public string GetGameModeName => GameModeName;
 	}

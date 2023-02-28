@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GameClient.Scripts
+namespace Com.JVL.Game.GameMode
 {
 	[Serializable]
 	public class TeamConfiguration

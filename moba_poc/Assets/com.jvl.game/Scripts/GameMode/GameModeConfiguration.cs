@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Com.JVL.Game.GameMode;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace GameClient.Scripts
+namespace Com.JVL.Game.GameMode
 {
 	[CreateAssetMenu(fileName = "XXX_GameMode", menuName = "Project/Create Game Mode Config", order = 0)]
 

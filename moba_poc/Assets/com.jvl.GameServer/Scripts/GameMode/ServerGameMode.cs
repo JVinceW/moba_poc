@@ -1,6 +1,4 @@
 ﻿using Com.JVL.Game.GameMode;
-using Com.JVL.Game.Player;
-using Com.JVL.Game.Server.Player;
 using Cysharp.Threading.Tasks;
 using Fusion;
 using UnityEngine;
@@ -38,8 +36,8 @@ namespace Com.JVL.Game.Server
 			var gamePlayerState = runner.Spawn(_playerStatePrefabRef, Vector3.zero, 
 				Quaternion.identity, 
 				null, (networkRunner, o) => {
-					var playerStateServer = o.GetComponent<GamePlayerStateServer>();
-					playerStateServer.NotificationSpawned();
+					// var playerStateServer = o.GetComponent<GamePlayerStateServer>();
+					// playerStateServer.NotificationSpawned();
 				});
 			// Create a unique position for the player
 			// Vector3 spawnPosition =

@@ -6,24 +6,43 @@ namespace Com.JVL.Game.Server.Player
 {
 	public class GamePlayerStateServer : GamePlayerState
 	{
-		public void NotificationSpawned()
+		private PlayerRef Player;
+		private TickTimer life;
+		public void NotificationSpawned(PlayerRef player)
 		{
+			life = TickTimer.CreateFromSeconds(Runner, 10.0f);
+			Player = player;
 			Debug.Log("Spawned Server", gameObject);
-
-			NetworkRunner.OnBeforeSpawned handle = (runner, o) => { };
 		}
 
 		public override void Spawned()
 		{
 			Debug.Log("Spawned callback");
-			RPC_ClientSpawnedNotification();
+			Debug.Log($"HasStateAuthority: {Object.HasStateAuthority} - HasInputAuthority: {Object.HasInputAuthority} - IsProxies: {Object.IsProxy}");
+			// if (Runner.IsServer)
+			// {
+			// 	Debug.Log("Server sending RPC");
+			// 	RPC_ClientSpawnedNotification(Player);
+			// }
 		}
-		
 
-		[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-		public void RPC_ClientSpawnedNotification()
+
+		[Rpc(RpcSources.StateAuthority, RpcTargets.InputAuthority, Channel = RpcChannel.Reliable, HostMode = RpcHostMode.SourceIsServer)]
+		public void RPC_ClientSpawnedNotification([RpcTarget] PlayerRef player)
 		{
-			Debug.Log("Client");
+			Debug.Log($"Client {player.PlayerId}");
+		}
+
+		public override void FixedUpdateNetwork()
+		{
+			if (Runner.IsServer)
+			{
+				if (life.Expired(Runner))
+				{
+					Debug.Log("Server tick timer Expired");
+					RPC_ClientSpawnedNotification(Player);
+				}
+			}
 		}
 	}
 }

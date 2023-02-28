@@ -14,7 +14,6 @@ namespace Com.JVL.Game.GameMode
 		#region IBeforeSpawn Implementation
 		public void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
 		{
-			Debug.Log("InitializeObjBeforeSpawn BasicGameState");
 			_gameTimeManager.SetDependencies(this, runner);
 		}
 		#endregion IBeforeSpawn Implementation

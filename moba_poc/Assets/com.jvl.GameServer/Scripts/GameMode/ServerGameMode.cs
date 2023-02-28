@@ -3,15 +3,16 @@ using Com.JVL.Game.GameMode;
 using Fusion;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Com.JVL.Game.Server
 {
 	public class ServerGameMode : BaseGameMode
 	{
-		private GameLifeTimeScopeServer _gameLifeTimeScope;
+		private LifetimeScope _gameLifeTimeScope;
 		
 		[Inject]
-		public void InstallDependencies(GameLifeTimeScopeServer lifeTimeScopeServer)
+		public void InstallDependencies(LifetimeScope lifeTimeScopeServer)
 		{
 			Debug.Log("Inject lifetime scope into server game mode");
 			_gameLifeTimeScope = lifeTimeScopeServer;
@@ -19,38 +20,32 @@ namespace Com.JVL.Game.Server
 
 		public void Init()
 		{
-			Debug.Log("init Server game Mode");
+			Debug.Log("[ServerGameMode] Start init server");
 			// spawn game state object
+			SpawnGameState();
+		}
+
+		private void SpawnGameState()
+		{
 			var gameState = GameModeConfiguration.GetGameState;
-			GetRunner.Spawn(gameState, Vector3.zero, Quaternion.identity, null, (runner, o) => {
-				var baseGameState =  o.GetComponent<BaseGameState>();
-				// This should be call before other process that use the dependencies run
-				if (baseGameState is ICustomInjection inject)
+			var gameStateNetworkObject = Runner.Spawn(gameState, Vector3.zero, Quaternion.identity, null, (runner, o) => {
+				var gameStateComponent =  o.GetComponent<BaseGameState>();
+				if (gameStateComponent is ICustomInjection inject)
 				{
 					inject.SetDependencies(_gameLifeTimeScope);
 				}
-				if (baseGameState is IBeforeSpawn beforeSpawn)
+				if (gameStateComponent is IBeforeSpawn beforeSpawn)
 				{
 					beforeSpawn.InitializeObjBeforeSpawn(runner, o);
 				}
 			});
+			BaseGameState = gameStateNetworkObject.GetComponent<BaseGameState>();
 		}
 
 		public override void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
 		{
-			base.OnPlayerJoined(runner, player);
+			// BaseGameState.PlayerJoined(player, );
 			Debug.Log($"Player joined: {player.PlayerId}");
-			
-			
-			
-			
-			// Create a unique position for the player
-			// Vector3 spawnPosition =
-			// new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
-			// NetworkObject networkPlayerObject =
-			// runner.Spawn(_gameModeConfiguration.GetPlayerCharacter, spawnPosition, Quaternion.identity, player);
-			// Keep track of the player avatars so we can remove it when they disconnect
-			// _spawnedCharacters.Add(player, networkPlayerObject);
 		}
 	}
 }

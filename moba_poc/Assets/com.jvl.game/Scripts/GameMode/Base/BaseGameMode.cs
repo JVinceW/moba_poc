@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Com.JVL.Game.Common;
 using Cysharp.Threading.Tasks;
 using Fusion;
 using Fusion.Sockets;
@@ -21,22 +22,25 @@ namespace Com.JVL.Game.GameMode
 		[SerializeReference]
 		protected BaseGameModeConfiguration GameModeConfiguration;
 		
+		[ReadOnly]
+		[SerializeField]
+		protected BaseGameState BaseGameState;
+
+		[SerializeReference]
+		protected SpawnPoint[] SpawnPoints;
+
 		[Inject]
 		private GameInstance _gameInstance;
 
 		[SerializeField]
-		private NetworkRunner _runner;
-		
+		protected NetworkRunner Runner;
+
 		[SerializeField]
 		private NetworkSceneManagerBase _networkSceneManager;
 
-		protected BaseGameState BaseGameState;
-
-		protected NetworkRunner GetRunner => _runner;
-
 		protected virtual void Reset()
 		{
-			_runner = GetComponent<NetworkRunner>();
+			Runner = GetComponent<NetworkRunner>();
 			_networkSceneManager = GetComponent<NetworkSceneManagerBase>();
 		}
 
@@ -46,7 +50,7 @@ namespace Com.JVL.Game.GameMode
 		{
 			return (T)BaseGameState;
 		}
-		
+
 		protected virtual string GetSessionName()
 		{
 			return "Default";
@@ -97,20 +101,19 @@ namespace Com.JVL.Game.GameMode
 		}
 
 		string IGameMode.GameModeName => GameModeConfig.GetGameModeName;
+
 		public async UniTask StartGame(Fusion.GameMode gameMode)
 		{
-			_runner.ProvideInput = true;
+			Runner.ProvideInput = true;
 			var args = new StartGameArgs {
 				GameMode = gameMode,
 				SessionName = GetSessionName(),
 				Scene = SceneManager.GetActiveScene().buildIndex,
 				SceneManager = _networkSceneManager
 			};
-			await _runner.StartGame(args).AsUniTask();
+			await Runner.StartGame(args).AsUniTask();
 			Debug.Log($"[BaseGameMode] game stated: {gameMode}");
 		}
 		#endregion IGameMode Implementation
 	}
-	
-	
 }

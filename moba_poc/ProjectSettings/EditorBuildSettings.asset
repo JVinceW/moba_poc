@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/com.jvl.GameServer/Scenes/ServerGameInstance.unity
     guid: 3417d800b544c844ca83d37f357d2d06
+  - enabled: 1
+    path: Assets/com.jvl.game/Scenes/GameMainScene.unity
+    guid: 29c30fe72fbc0f24eae5014b6c4e63bb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f67d1a54a6c01fd419debf9004dc2284,
       type: 2}

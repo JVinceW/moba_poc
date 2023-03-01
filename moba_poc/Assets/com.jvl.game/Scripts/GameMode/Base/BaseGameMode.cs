@@ -108,11 +108,10 @@ namespace Com.JVL.Game.GameMode
 			var args = new StartGameArgs {
 				GameMode = gameMode,
 				SessionName = GetSessionName(),
-				Scene = SceneManager.GetActiveScene().buildIndex,
+				Scene = GameModeConfiguration.GetGameMainSceneIndex,
 				SceneManager = _networkSceneManager
 			};
 			await Runner.StartGame(args).AsUniTask();
-			Debug.Log($"[BaseGameMode] game stated: {gameMode}");
 		}
 		#endregion IGameMode Implementation
 	}

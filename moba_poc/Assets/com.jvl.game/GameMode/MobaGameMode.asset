@@ -17,6 +17,8 @@ MonoBehaviour:
     type: 3}
   PlayerCharacter:
     RawGuidValue: 6eacdcffb1987e045a8cc3b1bac1f6dc
+  PlayerState:
+    RawGuidValue: d6b318275293c0a4697e0b44fcee7329
   GameState:
     RawGuidValue: c433c259e27536f47b0447d60ce3c277
   DefaultSceneToLoad:
@@ -34,6 +36,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  GameMainSceneIndex: 3
   _maxPlayers: 10
   _playablePlayerCount: 10
   _maxTeamCount: 2

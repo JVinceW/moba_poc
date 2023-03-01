@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Assets/com.jvl.GameServer/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 29c30fe72fbc0f24eae5014b6c4e63bb
+    m_Address: Assets/com.jvl.game/Scenes/GameMainScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 628232a29e1bdc44d98a99840de9f48a, type: 2}
   m_SchemaSet:

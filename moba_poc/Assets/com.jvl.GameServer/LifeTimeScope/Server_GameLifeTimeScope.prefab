@@ -48,6 +48,5 @@ MonoBehaviour:
     TypeName: Com.JVL.Game.GameLifeTimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  _serverGameMode: {fileID: 0}
-  _serverMainPlayer: {fileID: 5152528282342540625, guid: 7062ff5069bafaf47a9f24ee82ba65d2,
+  _serverGameMode: {fileID: 8793550013073597165, guid: 12a15ea218d73c84ca60a27d618b8761,
     type: 3}

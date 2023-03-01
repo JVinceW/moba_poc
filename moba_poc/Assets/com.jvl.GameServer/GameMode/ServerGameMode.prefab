@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameModeConfiguration: {fileID: 0}
-  _runner: {fileID: -3322781927882068244}
+  BaseGameState: {fileID: 0}
+  SpawnPoints: []
+  Runner: {fileID: -3322781927882068244}
   _networkSceneManager: {fileID: 5782278567851736356}
-  _playerStatePrefabRef:
-    RawGuidValue: 00000000000000000000000000000000
 --- !u!114 &-3322781927882068244
 MonoBehaviour:
   m_ObjectHideFlags: 0

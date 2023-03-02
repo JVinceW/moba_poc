@@ -1,28 +1,27 @@
 ﻿using Com.JVL.Game.Common;
 using Com.JVL.Game.Managers.GameTimeManager;
 using Fusion;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Com.JVL.Game.GameMode
 {
-	public class BasicGameState : BaseGameState, IBeforeSpawn, ICustomInjection
+	public class BasicGameState : BaseGameState, IBeforeSpawn
 	{
-		private GameTimeManager _gameTimeManager;
+		protected GameTimeManager GameTimeManager;
 
 		#region IBeforeSpawn Implementation
 		public void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
 		{
-			_gameTimeManager.SetDependencies(this, runner);
+			GameTimeManager.SetDependencies(this, runner);
 		}
 		#endregion IBeforeSpawn Implementation
 
 		#region ICustomInjection Implementation
-		public void SetDependencies(LifetimeScope currentScope)
+		public override void SetDependencies(LifetimeScope currentScope)
 		{
-			_gameTimeManager = currentScope.Container.Resolve<GameTimeManager>();
-			Debug.Log($"Game time manager: {_gameTimeManager == null}");
+			base.SetDependencies(currentScope);
+			GameTimeManager = currentScope.Container.Resolve<GameTimeManager>();
 		}
 		#endregion ICustomInjection Implementation
 	}

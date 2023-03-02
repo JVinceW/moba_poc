@@ -26,6 +26,10 @@ namespace Com.JVL.Game.GameMode
 		
 		[Foldout(EGeneralCategory)]
 		[SerializeField]
+		protected NetworkPrefabRef PlayerController;
+		
+		[Foldout(EGeneralCategory)]
+		[SerializeField]
 		protected NetworkPrefabRef PlayerState;
 
 		[Foldout(EGeneralCategory)]
@@ -59,6 +63,8 @@ namespace Com.JVL.Game.GameMode
 		public BaseGameLocalPlayer GetLocalPlayer => LocalPlayer;
 
 		public NetworkPrefabRef GetPlayerCharacter => PlayerCharacter;
+
+		public NetworkPrefabRef GetPlayerController => PlayerController;
 
 		public NetworkPrefabRef GetPlayerState => PlayerState;
 

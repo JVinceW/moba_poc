@@ -6,7 +6,6 @@ using Fusion;
 using Fusion.Sockets;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace Com.JVL.Game.GameMode
@@ -21,7 +20,7 @@ namespace Com.JVL.Game.GameMode
 		[Inject]
 		[SerializeReference]
 		protected BaseGameModeConfiguration GameModeConfiguration;
-		
+
 		[ReadOnly]
 		[SerializeField]
 		protected BaseGameState BaseGameState;
@@ -37,6 +36,8 @@ namespace Com.JVL.Game.GameMode
 
 		[SerializeField]
 		private NetworkSceneManagerBase _networkSceneManager;
+		
+		protected Dictionary<PlayerRef, NetworkObject> SpawnedCharacters = new();
 
 		protected virtual void Reset()
 		{

@@ -32,7 +32,6 @@ namespace Com.JVL.Game.Player
 		public virtual async UniTask StartGame()
 		{
 			_runner.ProvideInput = true;
-
 			var args = new StartGameArgs {
 				GameMode = Fusion.GameMode.Client,
 				SessionName = GetSessionName(),
@@ -65,7 +64,8 @@ namespace Com.JVL.Game.Player
 		public virtual void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request,
 			byte[] token) { }
 
-		public virtual void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
+		public virtual void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress,
+			NetConnectFailedReason reason) { }
 
 		public virtual void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
 

@@ -7,13 +7,19 @@ namespace Com.JVL.Game.GameMode
 	[Serializable]
 	public class TeamConfiguration
 	{
-		[FormerlySerializedAs("_defaultTeamName")]
 		[SerializeField]
-		private string TeamName;
+		private string _teamName;
 
-		public string DefaultTeamName {
-			get => TeamName;
-			set => TeamName = value;
-		}
+		[SerializeField]
+		private int _teamId;
+
+		[SerializeField]
+		private int _maxTeamMemberCount;
+
+		public string TeamName => _teamName;
+
+		public int TeamId => _teamId;
+
+		public int MaxTeamMemberCount => _maxTeamMemberCount;
 	}
 }

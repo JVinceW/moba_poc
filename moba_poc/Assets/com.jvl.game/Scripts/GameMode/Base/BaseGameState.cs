@@ -1,26 +1,29 @@
 ﻿using System.Collections.Generic;
+using Com.JVL.Game.Common;
 using Com.JVL.Game.Player;
 using Fusion;
+using VContainer.Unity;
 
 namespace Com.JVL.Game.GameMode
 {
-	public class BaseGameState : NetworkBehaviour
+	public class BaseGameState : NetworkBehaviour, ICustomInjection
 	{
-		private readonly Dictionary<PlayerRef, NetworkObject> _playerNWObjects = new();
+		private Dictionary<PlayerRef, GamePlayerState> PlayerStates = new();
 
-		private readonly List<GamePlayerState> _playerStates = new();
-
-		public void PlayerJoined(PlayerRef playerRef, NetworkObject playerNWObject)
+		#region - Methods -
+		public void PlayerJoin(PlayerRef player, GamePlayerState playerState)
 		{
-			if (!_playerNWObjects.ContainsKey(playerRef))
-			{
-				_playerNWObjects.Add(playerRef, playerNWObject);
-			}
+			PlayerStates.Add(player, playerState);
 		}
 
-		void PlayerLeft(PlayerRef playerRef)
+		public void PlayerLeft(PlayerRef player)
 		{
-			_playerNWObjects.Remove(playerRef);
+			PlayerStates.Remove(player);
 		}
+
+		#region - Implementation ICustomInjection -
+		public virtual void SetDependencies(LifetimeScope currentScope) { }
+		#endregion - Implementation ICustomInjection -
+		#endregion - Methods -
 	}
 }

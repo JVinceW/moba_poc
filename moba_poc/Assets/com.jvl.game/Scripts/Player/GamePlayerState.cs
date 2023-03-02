@@ -8,14 +8,15 @@ namespace Com.JVL.Game.Player
 	{
 		public void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj) { }
 
-		protected void Spawned()
+		public override void Spawned()
 		{
+			Debug.Log("GamePlayerState", gameObject);
 			if (Runner.IsServer)
 			{
-				Debug.Log("Player State spawned on server");
+				Debug.Log("GamePlayerState Server", gameObject);
 			} else if (Runner.IsClient)
 			{
-				Debug.Log("Player State spawned on client");
+				Debug.Log("GamePlayerState Client", gameObject);
 			}
 		}
 	}

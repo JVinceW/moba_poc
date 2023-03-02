@@ -1,6 +1,8 @@
-﻿namespace Com.JVL.Game.Player
+﻿using Fusion;
+
+namespace Com.JVL.Game.Player
 {
-	public class GamePlayerController
+	public class GamePlayerController : NetworkBehaviour
 	{
 		
 	}

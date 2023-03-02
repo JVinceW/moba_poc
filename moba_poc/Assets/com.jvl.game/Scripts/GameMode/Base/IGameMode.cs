@@ -6,7 +6,7 @@ namespace Com.JVL.Game.GameMode
 	{
 		BaseGameModeConfiguration GameModeConfig { get; }
 		T GameModeConfigByType<T>() where T : BaseGameModeConfiguration;
-		
+
 		string GameModeName { get; }
 
 		UniTask StartGame(Fusion.GameMode gameMode);

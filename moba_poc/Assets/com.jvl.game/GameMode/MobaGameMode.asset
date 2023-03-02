@@ -17,6 +17,8 @@ MonoBehaviour:
     type: 3}
   PlayerCharacter:
     RawGuidValue: 6eacdcffb1987e045a8cc3b1bac1f6dc
+  PlayerController:
+    RawGuidValue: 4c482c0fdd328234894d487b98b557f7
   PlayerState:
     RawGuidValue: d6b318275293c0a4697e0b44fcee7329
   GameState:

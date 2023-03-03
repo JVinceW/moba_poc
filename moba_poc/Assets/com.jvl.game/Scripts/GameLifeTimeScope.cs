@@ -1,4 +1,5 @@
-﻿using Com.JVL.Game.GameMode;
+﻿using Com.JVL.Game.Common;
+using Com.JVL.Game.GameMode;
 using Com.JVL.Game.Managers.GameSceneManager;
 using Com.JVL.Game.Managers.GameTimeManager;
 using Com.JVL.Game.Managers.PlayerManager;
@@ -11,6 +12,8 @@ namespace Com.JVL.Game
 {
 	public class GameLifeTimeScope : LifetimeScope
 	{
+		private static LifetimeScope _lifetimeScope;
+		
 		[Expandable]
 		[SerializeReference]
 		private BaseGameModeConfiguration _gameModeConfiguration;
@@ -24,6 +27,7 @@ namespace Com.JVL.Game
 		private void Start()
 		{
 			DontDestroyOnLoad(gameObject);
+			_lifetimeScope = this;
 		}
 
 		protected override void Configure(IContainerBuilder builder)
@@ -33,7 +37,18 @@ namespace Com.JVL.Game
 			builder.RegisterInstance(_playerManager);
 			builder.RegisterInstance(_gameModeConfiguration);
 			builder.RegisterInstance(_gameTimeManager);
+			builder.RegisterComponentInNewPrefab(_gameModeConfiguration.GetLocalPlayer, Lifetime.Singleton);
+			builder.RegisterInstance(_gameModeConfiguration.GetPlayerController);
 			builder.RegisterEntryPoint<GameInstance>().AsSelf();
+		}
+
+		public static void InstallDependenciesResolver(ICustomInjection customInjection)
+		{
+			if (!_lifetimeScope)
+			{
+				_lifetimeScope = FindFirstObjectByType<LifetimeScope>();
+			}
+			customInjection.SetDependencies(_lifetimeScope.Container);
 		}
 	}
 }

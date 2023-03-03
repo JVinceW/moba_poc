@@ -5,11 +5,12 @@ using UnityEngine;
 namespace Com.JVL.Game.GameMode
 {
 	[CreateAssetMenu(fileName = "XXX_GameMode", menuName = "Project/Create Game Mode Config", order = 0)]
-
 	public class GameModeConfiguration : BaseGameModeConfiguration
 	{
+		// ReSharper disable once MemberCanBePrivate.Global
 		protected const string EGamePlayCategory = "GamePlay";
 		
+		[Header("Basic Gameplay Config")]
 		[Foldout(EGamePlayCategory)]
 		[SerializeField]
 		private int _maxPlayers = 10;

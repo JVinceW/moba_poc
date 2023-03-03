@@ -6,10 +6,11 @@ using UnityEngine.AddressableAssets;
 
 namespace Com.JVL.Game.GameMode
 {
-
 	public class BaseGameModeConfiguration : ScriptableObject
 	{
+		// ReSharper disable once MemberCanBePrivate.Global
 		protected const string EGeneralCategory = "General";
+		// ReSharper disable once MemberCanBePrivate.Global
 		protected const string ESceneCategory = "Scene";
 
 		[Foldout(EGeneralCategory)]

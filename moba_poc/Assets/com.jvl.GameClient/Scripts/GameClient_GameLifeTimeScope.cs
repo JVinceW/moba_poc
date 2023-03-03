@@ -1,5 +1,4 @@
-﻿using GameClient.Scripts;
-using VContainer;
+﻿using VContainer;
 using VContainer.Unity;
 
 namespace Com.JVL.Game.Client

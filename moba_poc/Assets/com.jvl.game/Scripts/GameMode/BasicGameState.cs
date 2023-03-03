@@ -2,7 +2,6 @@
 using Com.JVL.Game.Managers.GameTimeManager;
 using Fusion;
 using VContainer;
-using VContainer.Unity;
 
 namespace Com.JVL.Game.GameMode
 {
@@ -17,12 +16,12 @@ namespace Com.JVL.Game.GameMode
 		}
 		#endregion IBeforeSpawn Implementation
 
-		#region ICustomInjection Implementation
-		public override void SetDependencies(LifetimeScope currentScope)
+		#region - ICustomInjection Implementation -
+		public override void SetDependencies(IObjectResolver objectResolver)
 		{
-			base.SetDependencies(currentScope);
-			GameTimeManager = currentScope.Container.Resolve<GameTimeManager>();
+			base.SetDependencies(objectResolver);
+			GameTimeManager = objectResolver.Resolve<GameTimeManager>();
 		}
-		#endregion ICustomInjection Implementation
+		#endregion - ICustomInjection Implementation -
 	}
 }

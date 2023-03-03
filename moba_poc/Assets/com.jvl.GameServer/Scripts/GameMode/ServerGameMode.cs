@@ -10,13 +10,8 @@ namespace Com.JVL.Game.Server
 {
 	public class ServerGameMode : BaseGameMode
 	{
-		private LifetimeScope _gameLifeTimeScope;
-
 		[Inject]
-		public void InstallDependencies(LifetimeScope lifeTimeScopeServer)
-		{
-			_gameLifeTimeScope = lifeTimeScopeServer;
-		}
+		private LifetimeScope _gameLifeTimeScope;
 
 		public void Init()
 		{
@@ -27,8 +22,8 @@ namespace Com.JVL.Game.Server
 		public override void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
 		{
 			SpawnPlayerState(player, runner);
-			SpawnPlayerCharacter(player);
-			SpawnPlayerController(player);
+			var playerCharacter = SpawnPlayerCharacter(player);
+			SpawnPlayerController(player, playerCharacter);
 		}
 
 		public override void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -46,7 +41,7 @@ namespace Com.JVL.Game.Server
 					var gameStateComponent = o.GetComponent<BaseGameState>();
 					if (gameStateComponent is ICustomInjection inject)
 					{
-						inject.SetDependencies(_gameLifeTimeScope);
+						inject.SetDependencies(_gameLifeTimeScope.Container);
 					}
 
 					if (gameStateComponent is IBeforeSpawn beforeSpawn)
@@ -57,18 +52,24 @@ namespace Com.JVL.Game.Server
 			BaseGameState = gameStateNetworkObject.GetComponent<BaseGameState>();
 		}
 
-		private void SpawnPlayerCharacter(PlayerRef playerRef)
+		private GamePlayerCharacter SpawnPlayerCharacter(PlayerRef playerRef)
 		{
 			var playerCharacter = GameModeConfiguration.GetPlayerCharacter;
 			var playerCharacterNWObject = Runner.Spawn(playerCharacter, Vector3.zero, Quaternion.identity, playerRef);
 			playerCharacterNWObject.gameObject.name = $"PlayerCharacter_{playerRef.PlayerId}";
+			return playerCharacterNWObject.GetComponent<GamePlayerCharacter>();
 		}
 
-		private void SpawnPlayerController(PlayerRef playerRef)
+		private void SpawnPlayerController(PlayerRef playerRef, GamePlayerCharacter playerCharacter)
 		{
 			var playerController = GameModeConfiguration.GetPlayerController;
 			var playerControllerNWObject = Runner.Spawn(playerController, Vector3.zero, Quaternion.identity);
 			playerControllerNWObject.gameObject.name = $"PlayerController{playerRef.PlayerId}";
+			var playerControllerComponent = playerControllerNWObject.GetComponent<GamePlayerController>();
+			if (playerControllerComponent)
+			{
+				playerControllerComponent.InstallDependencies(playerCharacter);
+			}
 		}
 
 		private void SpawnPlayerState(PlayerRef player, NetworkRunner runner)
@@ -78,6 +79,10 @@ namespace Com.JVL.Game.Server
 			var playerStateObject = runner.Spawn(playerStateRef, Vector3.zero, Quaternion.identity,
 				onBeforeSpawned: (inRunner, o) => {
 					var gamePlayerStateComponent = o.GetComponent<GamePlayerState>();
+					if (gamePlayerStateComponent is ICustomInjection customInjection)
+					{
+						customInjection.SetDependencies(_gameLifeTimeScope.Container);
+					}
 					if (gamePlayerStateComponent is IBeforeSpawn beforeSpawn)
 					{
 						beforeSpawn.InitializeObjBeforeSpawn(inRunner, o);
@@ -85,6 +90,11 @@ namespace Com.JVL.Game.Server
 				});
 			SpawnedCharacters.Add(player, playerStateObject);
 			BaseGameState.PlayerJoin(player, playerStateObject.GetComponent<GamePlayerState>());
+		}
+
+		private void AssignPlayerToTeam()
+		{
+			
 		}
 		#endregion - Subroutines -
 	}

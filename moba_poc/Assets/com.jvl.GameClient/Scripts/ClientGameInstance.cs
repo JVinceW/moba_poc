@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading;
-using Com.JVL.Game;
 using Com.JVL.Game.GameMode;
 using Com.JVL.Game.Player;
 using Cysharp.Threading.Tasks;
+using Fusion;
 using VContainer;
 using VContainer.Unity;
-using Object = UnityEngine.Object;
 
-namespace GameClient.Scripts
+namespace Com.JVL.Game.Client
 {
 	public class ClientGameInstance : IInitializable, IAsyncStartable, IDisposable
 	{
@@ -18,26 +17,34 @@ namespace GameClient.Scripts
 		[Inject]
 		private BaseGameModeConfiguration _gameModeConfiguration;
 
+		[Inject]
 		private BaseGameLocalPlayer _gameLocalPlayer;
+
+		private NetworkRunner _clientNetworkRunner;
+		
 
 		public BaseGameLocalPlayer GetGameLocalPlayer => _gameLocalPlayer;
 
+		public NetworkRunner GetClientNetworkRunner => _clientNetworkRunner;
+
+		#region - Lifecycle -
 		public UniTask StartAsync(CancellationToken cancellation)
 		{
 			return UniTask.CompletedTask;
 		}
 
-		private void CreateLocalPlayer()
+		public void Initialize()
 		{
-			var localPlayer = _gameModeConfiguration.GetLocalPlayer;
-			_gameLocalPlayer = Object.Instantiate(localPlayer);
+			_clientNetworkRunner = _gameLocalPlayer.Runner;
 		}
 
 		public void Dispose() { }
+		#endregion - Lifecycle -
 
-		public void Initialize()
-		{
-			CreateLocalPlayer();
-		}
+		#region - Method -
+		#endregion - Method -
+
+		#region - Subroutine -
+		#endregion - Subroutine -
 	}
 }

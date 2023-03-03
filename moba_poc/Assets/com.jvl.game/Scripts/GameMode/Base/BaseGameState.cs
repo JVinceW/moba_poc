@@ -2,12 +2,13 @@
 using Com.JVL.Game.Common;
 using Com.JVL.Game.Player;
 using Fusion;
-using VContainer.Unity;
+using VContainer;
 
 namespace Com.JVL.Game.GameMode
 {
 	public class BaseGameState : NetworkBehaviour, ICustomInjection
 	{
+		private IObjectResolver _objectResolver;
 		private Dictionary<PlayerRef, GamePlayerState> PlayerStates = new();
 
 		#region - Methods -
@@ -22,7 +23,10 @@ namespace Com.JVL.Game.GameMode
 		}
 
 		#region - Implementation ICustomInjection -
-		public virtual void SetDependencies(LifetimeScope currentScope) { }
+		public virtual void SetDependencies(IObjectResolver objectResolver)
+		{
+			_objectResolver = objectResolver;
+		}
 		#endregion - Implementation ICustomInjection -
 		#endregion - Methods -
 	}

@@ -20,6 +20,7 @@ namespace Com.JVL.Game
 	/// <summary>
 	/// The main class control almost all important process of the game. And this class should be exist through game lifecyle
 	/// </summary>
+	[Serializable]
 	public class GameInstance : IGameInstance, IAsyncStartable, IDisposable
 	{
 		private BaseGameModeConfiguration _gameModeConfiguration;

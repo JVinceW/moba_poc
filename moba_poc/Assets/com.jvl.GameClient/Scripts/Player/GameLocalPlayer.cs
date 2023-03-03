@@ -1,9 +1,8 @@
-﻿using Com.JVL.Game;
-using Com.JVL.Game.Player;
-using UnityEngine;
+﻿using Com.JVL.Game.Player;
+using Cysharp.Threading.Tasks;
 using VContainer;
 
-namespace GameClient.Scripts.Player
+namespace Com.JVL.Game.Client.Player
 {
 	public class GameLocalPlayer : BaseGameLocalPlayer
 	{
@@ -12,15 +11,36 @@ namespace GameClient.Scripts.Player
 
 		[Inject]
 		private ClientGameInstance _clientGameInstance;
-		
-		
 
-		private void OnGUI()
+		[Inject]
+		private GamePlayerController _playerController;
+
+		#region - Lifecycle -
+		
+		private async UniTask Start()
 		{
-			if (GUI.Button(new Rect(0, 40, 200, 40), "Client"))
-			{
-				StartGame();
-			}
+			await StartGame();
+			// AddRunnerCallback(this);
+			SpawnPlayerController();
 		}
+		
+		
+		#endregion - Lifecycle -
+
+		#region - Subroutine -
+		private void SpawnPlayerController()
+		{
+			
+		}
+		
+		#endregion - Subroutine -
+
+		// private void OnGUI()
+		// {
+		// 	if (GUI.Button(new Rect(0, 40, 200, 40), "Client"))
+		// 	{
+		// 		StartGame();
+		// 	}
+		// }
 	}
 }

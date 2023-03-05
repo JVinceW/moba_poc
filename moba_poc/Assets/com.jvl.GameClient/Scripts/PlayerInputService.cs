@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+﻿using System;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -12,7 +12,7 @@ namespace GameClient.Scripts
 
 		public PlayerInputService()
 		{
-			_myRandomGuid = GUID.Generate().ToString()[..5];
+			_myRandomGuid = Guid.NewGuid().ToString()[..5];
 			Debug.Log($"Init GUID in PlayerInputService constructor {_myRandomGuid}");
 		}
 

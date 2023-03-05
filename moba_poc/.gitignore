@@ -75,3 +75,4 @@ crashlytics-build.properties
 # asset store packages
 Assets/PolygonPrototype
 
+/Packages/Microsoft.CodeAnalysis.NetAnalyzers.7.0.0/*

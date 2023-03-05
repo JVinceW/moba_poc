@@ -42,6 +42,11 @@ namespace Com.JVL.Game
 			builder.RegisterEntryPoint<GameInstance>().AsSelf();
 		}
 
+		/// <summary>
+		/// The way to inject lifetime scope into NetworkBehaviour.
+		/// I know this is so dirty but I'm trying to use VContainer with it
+		/// </summary>
+		/// <param name="customInjection"></param>
 		public static void InstallDependenciesResolver(ICustomInjection customInjection)
 		{
 			if (!_lifetimeScope)

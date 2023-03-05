@@ -9,6 +9,7 @@ namespace Com.JVL.Game.Player
 	public partial class GamePlayerState : NetworkBehaviour, ICustomInjection
 	{
 		private IObjectResolver _objectResolver;
+		[Inject]
 		private GameInstance _gameInstance;
 
 		#region - Lifecycle -
@@ -33,8 +34,8 @@ namespace Com.JVL.Game.Player
 
 		public void SetDependencies(IObjectResolver objectResolver)
 		{
-			_objectResolver = objectResolver;
-			_gameInstance = objectResolver.Resolve<GameInstance>();
+			// _objectResolver = objectResolver;
+			// _gameInstance = objectResolver.Resolve<GameInstance>();
 		}
 		#endregion - Lifecycle -
 	}
